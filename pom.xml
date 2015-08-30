@@ -1,0 +1,274 @@
+<!--
+  #[
+  Project Factory
+  ##
+  Copyright (C) 2013 - 2015 Project Factory team and contributors
+  ##
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #]
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>fr.project-factory</groupId>
+	<artifactId>project-factory-parent</artifactId>
+	<version>3.3.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Project Factory</name>
+	<url>http://www.project-factory.fr</url>
+	<inceptionYear>2013</inceptionYear>
+
+	<organization>
+		<name>Project Factory team and contributors</name>
+		<url>http://www.project-factory.fr</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>AGPL 3.0</name>
+			<url>http://www.gnu.org/licenses/agpl-3.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>Fabien CRESPEL</name>
+			<email>fabien@crespel.net</email>
+			<roles>
+				<role>Product Manager</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:ssh://ittb-gitlab@cgi.it-toolbox.fr/project-factory/project-factory-core.git</connection>
+		<developerConnection>scm:git:ssh://ittb-gitlab@cgi.it-toolbox.fr/project-factory/project-factory-core.git</developerConnection>
+		<url>https://cgi.it-toolbox.fr/gitlab/project-factory/project-factory-core</url>
+	</scm>
+	<repositories>
+		<repository>
+			<id>it-toolbox-oss</id>
+			<name>iT-Toolbox OSS</name>
+			<url>https://cgi.it-toolbox.fr/nexus/content/groups/it-toolbox-oss/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>it-toolbox-oss</id>
+			<name>iT-Toolbox OSS</name>
+			<url>https://cgi.it-toolbox.fr/nexus/content/groups/it-toolbox-oss/</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>it-toolbox-oss-releases</id>
+			<name>iT-Toolbox OSS Releases</name>
+			<url>https://cgi.it-toolbox.fr/nexus/content/repositories/oss-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>it-toolbox-oss-snapshots</id>
+			<name>iT-Toolbox OSS Snapshots</name>
+			<url>https://cgi.it-toolbox.fr/nexus/content/repositories/oss-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<modules>
+		<module>plugins</module>
+		<module>archetypes</module>
+		<module>resources</module>
+		<module>products</module>
+		<module>packages</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<license.licenseName>agpl_v3</license.licenseName>
+	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.7</version>
+					<dependencies>
+						<dependency>
+							<groupId>ant-contrib</groupId>
+							<artifactId>ant-contrib</artifactId>
+							<version>1.0b3</version>
+							<exclusions>
+								<exclusion>
+									<groupId>ant</groupId>
+									<artifactId>ant</artifactId>
+								</exclusion>
+							</exclusions>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<artifactId>maven-archetype-plugin</artifactId>
+					<version>2.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.3</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.8</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-remote-resources-plugin</artifactId>
+					<version>1.5-PF</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-scm-plugin</artifactId>
+					<version>1.8.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.3</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+				<plugin>
+					<groupId>com.googlecode.velocity-maven-plugin</groupId>
+					<artifactId>velocity-maven-plugin</artifactId>
+					<version>1.1.0-PF</version>
+				</plugin>
+				<plugin>
+					<groupId>net.alchim31.maven</groupId>
+					<artifactId>yuicompressor-maven-plugin</artifactId>
+					<version>1.3.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.8</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>1.8</version>
+					<configuration>
+						<processStartTag>&#35;[</processStartTag>
+						<sectionDelimiter>&#35;&#35;</sectionDelimiter>
+						<processEndTag>&#35;]</processEndTag>
+						<roots>
+							<root>.</root>
+						</roots>
+						<includes>
+							<include>pom.xml</include>
+						</includes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>rpm-maven-plugin</artifactId>
+					<version>2.1.3</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>wagon-maven-plugin</artifactId>
+					<version>1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.kuali.maven.plugins</groupId>
+					<artifactId>properties-maven-plugin</artifactId>
+					<version>2.0.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.vafer</groupId>
+					<artifactId>jdeb</artifactId>
+					<version>1.3</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>custom-build-dir</id>
+			<activation>
+				<property>
+					<name>build.dir</name>
+				</property>
+			</activation>
+			<build>
+				<directory>${build.dir}/${project.groupId}/${project.artifactId}/${project.version}</directory>
+			</build>
+		</profile>
+		<profile>
+			<id>license-check</id>
+			<build>
+				<defaultGoal>process-sources</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>license-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>process-sources-license-check</id>
+								<phase>process-sources</phase>
+								<goals>
+									<goal>check-file-header</goal>
+								</goals>
+								<configuration>
+									<failOnMissingHeader>true</failOnMissingHeader>
+									<failOnNotUptodateHeader>true</failOnNotUptodateHeader>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>license-update</id>
+			<build>
+				<defaultGoal>process-sources</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>license-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>process-sources-license-update</id>
+								<phase>process-sources</phase>
+								<goals>
+									<goal>update-file-header</goal>
+								</goals>
+								<configuration>
+									<canUpdateCopyright>true</canUpdateCopyright>
+									<canUpdateDescription>true</canUpdateDescription>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>

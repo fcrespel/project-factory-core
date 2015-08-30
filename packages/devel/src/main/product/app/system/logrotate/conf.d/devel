@@ -1,0 +1,10 @@
+@{package.log}/repo_update.log {
+    missingok
+    notifempty
+    weekly
+    rotate 52
+    dateext
+    compress
+    delaycompress
+    create 0644 @{product.user} @{product.group}
+}

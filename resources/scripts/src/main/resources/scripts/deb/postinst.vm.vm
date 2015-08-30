@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -e "@{product.bin}/loadenv.sh" ]; then
+	. "@{product.bin}/loadenv.sh"
+fi
+
+if [ "$1" = "configure" ]; then
+	: # Package configuration
+\#include( "src/main/scripts/postinstall.sh" )
+fi

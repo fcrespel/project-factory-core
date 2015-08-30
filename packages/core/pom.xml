@@ -1,0 +1,181 @@
+<!--
+  #[
+  Project Factory Core Packages - Core
+  ##
+  Copyright (C) 2013 - 2015 Project Factory team and contributors
+  ##
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #]
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.project-factory.core.packages</groupId>
+		<artifactId>packages</artifactId>
+		<version>3.3.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>core</artifactId>
+	<version>3.3.0-1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Project Factory Core Packages - Core</name>
+	<description>Project Factory Core Platform</description>
+	
+	<properties>
+		<package.type>system</package.type>
+		<package.user>${product.user}</package.user>
+		<package.rpm.directoryIncluded>true</package.rpm.directoryIncluded>
+		<package.rpm.dependencies.default>
+			${system.package.lsb},
+			/usr/bin/getent,
+			/usr/sbin/useradd,
+			/usr/sbin/groupadd
+		</package.rpm.dependencies.default>
+		<package.deb.dependencies.default>
+			${system.package.lsb}
+		</package.deb.dependencies.default>
+	</properties>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>rpm-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>package-rpm</id>
+							<configuration>
+								<obsoletes>
+									<obsolete>${package.prefix}-system-core</obsolete>
+								</obsoletes>
+								<mappings combine.children="append">
+									<mapping>
+										<directory>${product.root}</directory>
+										<filemode>750</filemode>
+									</mapping>
+									<mapping>
+										<directory>${product.tmp}</directory>
+										<filemode>775</filemode>
+									</mapping>
+									<mapping>
+										<directory>${system.logrotate.data}</directory>
+										<sources>
+											<softlinkSource>
+												<location>${product.app}/system/logrotate/logrotate.conf</location>
+												<destination>${product.id}</destination>
+											</softlinkSource>
+										</sources>
+									</mapping>
+									<mapping>
+										<directory>${system.cron.data.daily}</directory>
+										<sources>
+											<softlinkSource>
+												<location>${product.bin}/cron.daily.sh</location>
+												<destination>${product.id}.sh</destination>
+											</softlinkSource>
+										</sources>
+									</mapping>
+									<mapping>
+										<directory>${system.cron.data.hourly}</directory>
+										<sources>
+											<softlinkSource>
+												<location>${product.bin}/cron.hourly.sh</location>
+												<destination>${product.id}.sh</destination>
+											</softlinkSource>
+										</sources>
+									</mapping>
+								</mappings>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.vafer</groupId>
+					<artifactId>jdeb</artifactId>
+					<executions>
+						<execution>
+							<id>package-deb</id>
+							<configuration>
+								<dataSet combine.children="append">
+									<data>
+										<type>template</type>
+										<paths>
+											<path>${product.root}</path>
+										</paths>
+										<mapper>
+											<type>perm</type>
+											<user>${package.user}</user>
+											<group>${package.group}</group>
+											<filemode>750</filemode>
+											<dirmode>750</dirmode>
+										</mapper>
+									</data>
+									<data>
+										<type>template</type>
+										<paths>
+											<path>${product.tmp}</path>
+										</paths>
+										<mapper>
+											<type>perm</type>
+											<user>${package.user}</user>
+											<group>${package.group}</group>
+											<filemode>775</filemode>
+											<dirmode>775</dirmode>
+										</mapper>
+									</data>
+									<data>
+										<type>link</type>
+										<linkName>${system.logrotate.data}/${product.id}</linkName>
+										<linkTarget>${product.app}/system/logrotate/logrotate.conf</linkTarget>
+										<mapper>
+											<type>perm</type>
+											<user>${package.user}</user>
+											<group>${package.group}</group>
+										</mapper>
+									</data>
+									<data>
+										<type>link</type>
+										<linkName>${system.cron.data.daily}/${product.id}.sh</linkName>
+										<linkTarget>${product.bin}/cron.daily.sh</linkTarget>
+										<mapper>
+											<type>perm</type>
+											<user>${package.user}</user>
+											<group>${package.group}</group>
+										</mapper>
+									</data>
+									<data>
+										<type>link</type>
+										<linkName>${system.cron.data.hourly}/${product.id}.sh</linkName>
+										<linkTarget>${product.bin}/cron.hourly.sh</linkTarget>
+										<mapper>
+											<type>perm</type>
+											<user>${package.user}</user>
+											<group>${package.group}</group>
+										</mapper>
+									</data>
+								</dataSet>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

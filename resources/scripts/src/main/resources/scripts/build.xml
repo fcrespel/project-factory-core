@@ -1,0 +1,9 @@
+<project>
+	<target name="install">
+		<chmod perm="+x" verbose="true">
+			<fileset dir="${project.product.directory}" erroronmissingdir="false">
+				<include name="**/*.sh" />
+			</fileset>
+		</chmod>
+	</target>
+</project>

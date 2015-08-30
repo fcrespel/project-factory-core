@@ -1,0 +1,1 @@
+deb file:@{product.data}/system/maven/repository ./

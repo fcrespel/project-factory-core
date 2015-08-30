@@ -1,0 +1,27 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+					  http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<profiles>
+		<profile>
+			<id>project-factory-build</id>
+			<properties>
+				<build.dir>@{package.data}/build</build.dir>
+				<properties.product.groupId>@{properties.product.groupId}</properties.product.groupId>
+				<properties.product.artifactId>@{properties.product.artifactId}</properties.product.artifactId>
+				<properties.product.version>@{properties.product.version}</properties.product.version>
+				<properties.product.file>@{properties.product.file}</properties.product.file>
+				<properties.system.groupId>@{properties.system.groupId}</properties.system.groupId>
+				<properties.system.artifactId>@{properties.system.artifactId}</properties.system.artifactId>
+				<properties.system.version>@{properties.system.version}</properties.system.version>
+				<properties.system.file>@{properties.system.file}</properties.system.file>
+			</properties>
+		</profile>
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>project-factory-build</activeProfile>
+	</activeProfiles>
+
+</settings>

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -e "@{product.bin}/loadenv.sh" ]; then
+	. "@{product.bin}/loadenv.sh"
+fi
+
+getent group "@{package.group}" >/dev/null || groupadd -r "@{package.group}"
+getent passwd "@{package.user}" >/dev/null || if [ "@{package.user}" = "@{product.user}" ]; then
+	mkdir -p `dirname "@{package.root}"`
+	useradd -g "@{package.group}" -d "@{package.root}" -c "@{product.name}" -s /bin/bash -m -r "@{package.user}"
+else
+	useradd -g "@{package.group}" -d "@{package.root}" -c "@{product.name} @{project.artifactId}" -s /sbin/nologin -M -r "@{package.user}"
+fi
+
+\#include( "src/main/scripts/preinstall.sh" )

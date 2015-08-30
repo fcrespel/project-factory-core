@@ -1,0 +1,2 @@
+<Context path="/manager" privileged="true" docBase="${catalina.home}/webapps/manager">
+</Context>

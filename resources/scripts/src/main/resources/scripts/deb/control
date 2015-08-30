@@ -1,0 +1,9 @@
+Package: @{package.name}
+Version: @{package.version}-@{package.release}.@{product.release}.@{system.distribution}
+Section: @{package.deb.group}
+Priority: optional
+Architecture: @{package.deb.arch}
+Depends: @{package.deb.dependencies.all.fixed}
+Maintainer: @{package.maintainer}
+Homepage: @{project.organization.url}
+Description: @{project.description}

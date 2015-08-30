@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -e "@{product.bin}/loadenv.sh" ]; then
+	. "@{product.bin}/loadenv.sh"
+fi
+
+\#include( "src/main/scripts/postinstall.sh" )

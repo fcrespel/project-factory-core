@@ -1,0 +1,1 @@
+disableservice @{package.service}

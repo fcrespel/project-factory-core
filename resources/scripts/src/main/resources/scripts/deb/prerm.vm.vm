@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -e "@{product.bin}/loadenv.sh" ]; then
+	. "@{product.bin}/loadenv.sh"
+fi
+
+if [ "$1" = "remove" ]; then
+	: # Package removal
+\#include( "src/main/scripts/preremove.sh" )
+fi

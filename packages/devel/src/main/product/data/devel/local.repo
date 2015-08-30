@@ -1,0 +1,9 @@
+[@{product.id}-local]
+name=@{product.name} Local Repository
+baseurl=file://@{product.data}/system/maven/repository
+enabled=1
+protect=0
+gpgcheck=0
+metadata_expire=30s
+autorefresh=1
+type=rpm-md
