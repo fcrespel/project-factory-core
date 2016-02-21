@@ -32,7 +32,7 @@ fi
 
 # Install PUIAS repository
 echo "Installing PUIAS repository ..."
-if [ ! -e "$PUIAS_KEY_FILE" ] && ! wget -O "$PUIAS_KEY_FILE" "$PUIAS_KEY_URL"; then
+if [ ! -e "$PUIAS_KEY_FILE" ] && ! wget -q -O "$PUIAS_KEY_FILE" "$PUIAS_KEY_URL"; then
 	echo "Failed to install PUIAS GPG key, please ensure that the VM has internet access."
 	echo "You may run 'vagrant provision' to retry."
 	exit 1
@@ -82,9 +82,13 @@ if ! installpackages "$PF_PKG_PREFIX-devel"; then
 	exit 1
 fi
 
+# Configure root password
+echo
+echo "Configuring root password ..."
+( . "$PF_ROOT/bin/loadenv.sh" && echo "root:$ROOT_PASSWORD" | chpasswd )
+
 # Configure hostname
 PF_DOMAIN=`. "$PF_ROOT/bin/loadenv.sh" && echo $PRODUCT_DOMAIN`
-echo
 echo "Configuring hostname ($PF_DOMAIN) ..."
 hostname "$PF_DOMAIN"
 if ! grep -q "$PF_DOMAIN" "/etc/sysconfig/network"; then
@@ -141,3 +145,7 @@ echo
 echo "Platform users:"
 ( . "$PF_ROOT/bin/loadenv.sh" && echo -e "\troot:\t$ROOT_PASSWORD" )
 ( . "$PF_ROOT/bin/loadenv.sh" && echo -e "\tbot:\t$BOT_PASSWORD" )
+
+# Show main URL
+echo
+echo "You may now browse to http://$PF_DOMAIN to get started!"
