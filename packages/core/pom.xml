@@ -74,6 +74,15 @@
 										<filemode>775</filemode>
 									</mapping>
 									<mapping>
+										<directory>${system.bin}</directory>
+										<sources>
+											<softlinkSource>
+												<location>${product.bin}/admin.sh</location>
+												<destination>${product.id}-admin</destination>
+											</softlinkSource>
+										</sources>
+									</mapping>
+									<mapping>
 										<directory>${system.logrotate.data}</directory>
 										<sources>
 											<softlinkSource>
@@ -137,6 +146,16 @@
 											<group>${package.group}</group>
 											<filemode>775</filemode>
 											<dirmode>775</dirmode>
+										</mapper>
+									</data>
+									<data>
+										<type>link</type>
+										<linkName>${system.bin}/${product.id}-admin</linkName>
+										<linkTarget>${product.bin}/admin.sh</linkTarget>
+										<mapper>
+											<type>perm</type>
+											<user>${package.user}</user>
+											<group>${package.group}</group>
 										</mapper>
 									</data>
 									<data>
