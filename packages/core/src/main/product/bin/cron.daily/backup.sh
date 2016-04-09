@@ -14,7 +14,7 @@ echo "==========================================================================
 
 # Execute all backup scripts in order
 FAILURE=0
-for BACKUP_SCRIPT in `find "$BACKUP_DIR" -mindepth 1 -name '*.sh' | sort`; do
+for BACKUP_SCRIPT in `find "$BACKUP_DIR" -mindepth 1 -name 'backup-*.sh' | sort`; do
 	if [ -z "$BACKUP_SCRIPT" ]; then
 		continue;
 	fi
