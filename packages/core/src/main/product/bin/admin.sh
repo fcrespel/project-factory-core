@@ -21,15 +21,12 @@ if [ -z "$COMMAND_NAME" -o "$COMMAND_NAME" = "help" -o "$COMMAND_NAME" = "?" ]; 
 		echo "  ${COMMAND%.sh}"
 	done
 	exit 1
-fi
-
-# Execute command
-if [ -e "$COMMAND_FILE" ]; then
-	shift
-	[ -x "$COMMAND_FILE" ] || chmod +x "$COMMAND_FILE"
-	"$COMMAND_FILE" "$@"
-	exit $?
-else
+elif [ ! -e "$COMMAND_FILE" ]; then
 	echo "Command $COMMAND_NAME does not exist."
 	exit 2
 fi
+
+# Execute command
+shift
+[ -x "$COMMAND_FILE" ] || chmod +x "$COMMAND_FILE"
+"$COMMAND_FILE" "$@"
