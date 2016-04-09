@@ -13,6 +13,12 @@ INIT_DIR="$PRODUCT_BIN/init.d"
 SERVICE_NAME="${1%.sh}"
 SERVICE_FILE="$INIT_DIR/$SERVICE_NAME.sh"
 
+# Check user
+if [ "$(whoami)" != "root" ]; then
+	echo "You must be root to run this command"
+	exit 1
+fi
+
 # Check arguments
 if [ -z "$SERVICE_NAME" ]; then
 	echo "Usage: $0 <service name>"
