@@ -41,7 +41,9 @@
     <Engine name="Catalina" defaultHost="localhost">
 
       <Realm className="org.apache.catalina.realm.LockOutRealm">
-        <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase" digest="sha1"/>
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase">
+          <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="SHA-1" />
+        </Realm>
       </Realm>
 
       <Valve className="org.apache.catalina.valves.RemoteIpValve" protocolHeader="X-Forwarded-Proto" />
@@ -50,7 +52,7 @@
             unpackWARs="true" autoDeploy="true">
 
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
-               prefix="access_log" rotatable="false" pattern="combined" resolveHosts="false"/>
+               prefix="access_log" rotatable="false" pattern="combined" />
 
       </Host>
     </Engine>
