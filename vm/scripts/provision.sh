@@ -113,12 +113,6 @@ ServerName localhost
 ' "/etc/httpd/conf.d/ssl.conf"
 fi
 
-# Configure mod_auth_cas
-echo "Configuring mod_auth_cas ..."
-if grep -q "^\s*LoadModule" "/etc/httpd/conf.d/auth_cas.conf"; then
-	sed -ri 's/^(\s*)LoadModule/#\1LoadModule/g' "/etc/httpd/conf.d/auth_cas.conf"
-fi
-
 # Configure Maven proxy
 echo "Configuring Maven proxy ..."
 sed -i '/^\s*<proxies>/,/<\/proxies>/d' "$PF_ROOT/data/system/maven/settings.xml"
