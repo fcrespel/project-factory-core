@@ -65,11 +65,11 @@
 		</package.dependencies>
 		<package.rpm.dependencies>
 			${package.dependencies},
-			${package.prefix}-system-ruby >= 3.2.0
+			${package.prefix}-system-ruby >= 2.2.0
 		</package.rpm.dependencies>
 		<package.deb.dependencies>
 			${package.dependencies},
-			${package.prefix}-system-ruby (>= 3.2.0)
+			${package.prefix}-system-ruby (>= 2.2.0)
 		</package.deb.dependencies>
 	</properties>
 
