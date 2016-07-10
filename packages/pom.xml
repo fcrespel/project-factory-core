@@ -93,10 +93,10 @@
 		<package.user>${product.user}-${project.artifactId}</package.user>
 		<package.group>${product.group}</package.group>
 		<package.root>${product.root}</package.root>
-		<package.bundle.dummy>fr.project-factory.core.resources:dummy:3.3.0-SNAPSHOT</package.bundle.dummy>
+		<package.bundle.default>fr.project-factory.core.resources:default:3.3.0-SNAPSHOT</package.bundle.default>
 		<package.bundle.scripts>fr.project-factory.core.resources:scripts:3.3.0-SNAPSHOT</package.bundle.scripts>
 		<package.bundle.tomcat>fr.project-factory.core.resources:tomcat:3.3.0-SNAPSHOT</package.bundle.tomcat>
-		<package.src.bundle>${package.bundle.dummy}</package.src.bundle>
+		<package.src.bundle>${package.bundle.default}</package.src.bundle>
 	</properties>
 
 	<modules>
