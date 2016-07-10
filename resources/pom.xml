@@ -37,7 +37,7 @@
 	<description>Project Factory Core Resource Bundles</description>
 
 	<modules>
-		<module>dummy</module>
+		<module>default</module>
 		<module>scripts</module>
 		<module>tomcat</module>
 	</modules>

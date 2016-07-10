@@ -1,6 +1,6 @@
 <!--
   #[
-  Project Factory Core Resources - Dummy
+  Project Factory Core Resources - Default
   ##
   Copyright (C) 2013 - 2016 Project Factory team and contributors
   ##
@@ -29,11 +29,11 @@
 		<version>3.3.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>dummy</artifactId>
+	<artifactId>default</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Project Factory Core Resources - Dummy</name>
-	<description>Dummy resource bundle</description>
+	<name>Project Factory Core Resources - Default</name>
+	<description>Default resource bundle</description>
 
 	<build>
 		<plugins>
