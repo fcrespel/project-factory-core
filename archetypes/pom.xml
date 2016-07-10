@@ -59,6 +59,7 @@
 	<modules>
 		<module>package</module>
 		<module>product</module>
+		<module>theme</module>
 		<module>webapp</module>
 	</modules>
 

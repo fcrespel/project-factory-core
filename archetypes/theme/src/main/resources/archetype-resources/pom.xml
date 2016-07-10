@@ -1,0 +1,81 @@
+#set( $symbol_dollar = '$' )
+#set( $artifactId_UCF = "${artifactId.substring(0,1).toUpperCase()}${artifactId.substring(1).toLowerCase()}" )
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.project-factory.packages.services</groupId>
+		<artifactId>services</artifactId>
+		<version>3.3.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
+	<packaging>pom</packaging>
+
+	<name>Project Factory Services - ${artifactId_UCF}</name>
+	<description>${artifactId_UCF} package</description>
+
+	<properties>
+		<package.disabled>${symbol_dollar}{portal.disabled}</package.disabled>
+		<package.dependencies>
+			${symbol_dollar}{package.prefix}-service-portal
+		</package.dependencies>
+		<project.app.directory>${symbol_dollar}{project.product.directory}/app/services/portal</project.app.directory>
+		<package.user>${symbol_dollar}{product.user}-portal</package.user>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>process-resources-copy</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${symbol_dollar}{project.app.directory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>yuicompressor-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>process-resources-compress</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>compress</goal>
+						</goals>
+						<configuration>
+							<nosuffix>true</nosuffix>
+							<outputDirectory>${symbol_dollar}{project.app.directory}</outputDirectory>
+							<includes>
+								<include>themes/**/*.css</include>
+								<include>themes/**/*.js</include>
+							</includes>
+							<excludes>
+								<exclude>**/*.min.css</exclude>
+								<exclude>**/*.min.js</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
