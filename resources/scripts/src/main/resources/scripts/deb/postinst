@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ "$1" = "configure" ] || exit 0
+
 # Log start/success
 INSTALL_LOG="@{product.log}/system/core/install.log"
 echo "[$(date --rfc-3339=seconds)] @{package.name} postinstall start" >> "$INSTALL_LOG"

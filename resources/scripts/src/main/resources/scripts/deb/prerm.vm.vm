@@ -1,21 +1,28 @@
 #!/bin/bash
 
-if [ -e "@{product.bin}/loadenv.sh" ]; then
-	. "@{product.bin}/loadenv.sh"
-fi
+[ "$1" = "remove" ] || exit 0
+[ -e "@{product.bin}/loadenv.sh" ] && source "@{product.bin}/loadenv.sh"
 
-if [ "$1" = "remove" ]; then
-	SCRIPT_OUTPUT=`mktemp`
-	(
-		: # Package removal
+# Log start
+INSTALL_LOG="@{product.log}/system/core/install.log"
+echo "[$(date --rfc-3339=seconds)] @{package.name} preremove start" >> "$INSTALL_LOG"
+
+# Execute script
+SCRIPT_OUTPUT=`mktemp`
+(
+	: # Package removal
 \#include( "src/main/scripts/preremove.sh" )
-	) > "$SCRIPT_OUTPUT" 2>&1
-	SCRIPT_RET=$?
-	if [ $SCRIPT_RET -ne 0 ]; then
-		cat "$SCRIPT_OUTPUT"
-		rm -f "$SCRIPT_OUTPUT"
-		exit $SCRIPT_RET
-	else
-		rm -f "$SCRIPT_OUTPUT"
-	fi
+) > "$SCRIPT_OUTPUT" 2>&1
+
+# Handle script result
+SCRIPT_RET=$?
+if [ $SCRIPT_RET -ne 0 ]; then
+	cat "$SCRIPT_OUTPUT" | tee -a "$INSTALL_LOG"
+	rm -f "$SCRIPT_OUTPUT"
+	echo "[$(date --rfc-3339=seconds)] @{package.name} preremove failure" >> "$INSTALL_LOG"
+else
+	cat "$SCRIPT_OUTPUT" >> "$INSTALL_LOG"
+	rm -f "$SCRIPT_OUTPUT"
+	echo "[$(date --rfc-3339=seconds)] @{package.name} preremove success" >> "$INSTALL_LOG"
 fi
+exit $SCRIPT_RET

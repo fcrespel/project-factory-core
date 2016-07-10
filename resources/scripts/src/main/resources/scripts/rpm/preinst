@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Log start
+INSTALL_LOG="@{product.log}/system/core/install.log"
+echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall start" >> "$INSTALL_LOG"
+
+# Create user/group
 getent group "@{package.group}" >/dev/null || groupadd -r "@{package.group}"
 getent passwd "@{package.user}" >/dev/null || if [ "@{package.user}" = "@{product.user}" ]; then
 	mkdir -p `dirname "@{package.root}"`
@@ -7,3 +12,6 @@ getent passwd "@{package.user}" >/dev/null || if [ "@{package.user}" = "@{produc
 else
 	useradd -g "@{package.group}" -d "@{package.root}" -c "@{product.name} @{project.artifactId}" -s /sbin/nologin -M -r "@{package.user}"
 fi
+
+# Log end
+echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall success" >> "$INSTALL_LOG"

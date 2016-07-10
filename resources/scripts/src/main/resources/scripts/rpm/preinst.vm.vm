@@ -1,9 +1,12 @@
 #!/bin/bash
 
-if [ -e "@{product.bin}/loadenv.sh" ]; then
-	. "@{product.bin}/loadenv.sh"
-fi
+[ -e "@{product.bin}/loadenv.sh" ] && source "@{product.bin}/loadenv.sh"
 
+# Log start
+INSTALL_LOG="@{product.log}/system/core/install.log"
+echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall start" >> "$INSTALL_LOG"
+
+# Create user/group
 getent group "@{package.group}" >/dev/null || groupadd -r "@{package.group}"
 getent passwd "@{package.user}" >/dev/null || if [ "@{package.user}" = "@{product.user}" ]; then
 	mkdir -p `dirname "@{package.root}"`
@@ -12,16 +15,22 @@ else
 	useradd -g "@{package.group}" -d "@{package.root}" -c "@{product.name} @{project.artifactId}" -s /sbin/nologin -M -r "@{package.user}"
 fi
 
+# Execute script
 SCRIPT_OUTPUT=`mktemp`
 (
 	: # Package install/upgrade
 \#include( "src/main/scripts/preinstall.sh" )
 ) > "$SCRIPT_OUTPUT" 2>&1
+
+# Handle script result
 SCRIPT_RET=$?
 if [ $SCRIPT_RET -ne 0 ]; then
-	cat "$SCRIPT_OUTPUT"
+	cat "$SCRIPT_OUTPUT" | tee -a "$INSTALL_LOG"
 	rm -f "$SCRIPT_OUTPUT"
-	exit $SCRIPT_RET
+	echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall failure" >> "$INSTALL_LOG"
 else
+	cat "$SCRIPT_OUTPUT" >> "$INSTALL_LOG"
 	rm -f "$SCRIPT_OUTPUT"
+	echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall success" >> "$INSTALL_LOG"
 fi
+exit $SCRIPT_RET
