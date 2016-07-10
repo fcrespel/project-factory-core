@@ -5,6 +5,17 @@ if [ -e "@{product.bin}/loadenv.sh" ]; then
 fi
 
 if [ "$1" = "configure" ]; then
-	: # Package configuration
+	SCRIPT_OUTPUT=`mktemp`
+	(
+		: # Package configuration
 \#include( "src/main/scripts/postinstall.sh" )
+	) > "$SCRIPT_OUTPUT" 2>&1
+	SCRIPT_RET=$?
+	if [ $SCRIPT_RET -ne 0 ]; then
+		cat "$SCRIPT_OUTPUT"
+		rm -f "$SCRIPT_OUTPUT"
+		exit $SCRIPT_RET
+	else
+		rm -f "$SCRIPT_OUTPUT"
+	fi
 fi

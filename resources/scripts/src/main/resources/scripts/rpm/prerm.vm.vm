@@ -5,6 +5,17 @@ if [ -e "@{product.bin}/loadenv.sh" ]; then
 fi
 
 if [ "$1" = "0" ]; then
-	: # Package removal
+	SCRIPT_OUTPUT=`mktemp`
+	(
+		: # Package removal
 \#include( "src/main/scripts/preremove.sh" )
+	) > "$SCRIPT_OUTPUT" 2>&1
+	SCRIPT_RET=$?
+	if [ $SCRIPT_RET -ne 0 ]; then
+		cat "$SCRIPT_OUTPUT"
+		rm -f "$SCRIPT_OUTPUT"
+		exit $SCRIPT_RET
+	else
+		rm -f "$SCRIPT_OUTPUT"
+	fi
 fi

@@ -4,4 +4,16 @@ if [ -e "@{product.bin}/loadenv.sh" ]; then
 	. "@{product.bin}/loadenv.sh"
 fi
 
+SCRIPT_OUTPUT=`mktemp`
+(
+	: # Package install/upgrade
 \#include( "src/main/scripts/postinstall.sh" )
+) > "$SCRIPT_OUTPUT" 2>&1
+SCRIPT_RET=$?
+if [ $SCRIPT_RET -ne 0 ]; then
+	cat "$SCRIPT_OUTPUT"
+	rm -f "$SCRIPT_OUTPUT"
+	exit $SCRIPT_RET
+else
+	rm -f "$SCRIPT_OUTPUT"
+fi
