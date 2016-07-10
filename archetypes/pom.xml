@@ -57,11 +57,9 @@
 	</build>
 
 	<modules>
-		<module>system-package</module>
-		<module>admin-package</module>
-		<module>service-package</module>
-		<module>webapp-package</module>
+		<module>package</module>
 		<module>product</module>
+		<module>webapp</module>
 	</modules>
 
 </project>
