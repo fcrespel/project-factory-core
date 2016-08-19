@@ -35,7 +35,7 @@ function storevar
 			printerror "ERROR: core data directory is not defined or is empty"
 			return 1
 		fi
-		if [[ $VAR =~ PASSWORD ]]; then
+		if [[ $VAR =~ PASSWORD || $VAR =~ KEY ]]; then
 			CONFIG_FILE="$CORE_DATA_DIR/passwd.sh"
 		else
 			CONFIG_FILE="$CORE_DATA_DIR/config.sh"
