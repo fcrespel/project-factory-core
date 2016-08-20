@@ -42,6 +42,7 @@
 		<package.log>${product.log}/${project.artifactId}</package.log>
 		<package.dependencies>
 			${package.prefix}-system-maven3,
+			${package.prefix}-system-ruby >= 2.2.0,
 			${system.package.rpm-build},
 			${system.package.createrepo},
 			${system.package.subversion},
@@ -63,14 +64,6 @@
 			${system.package.imagemagick},
 			${system.package.imagemagick-devel}
 		</package.dependencies>
-		<package.rpm.dependencies>
-			${package.dependencies},
-			${package.prefix}-system-ruby >= 2.2.0
-		</package.rpm.dependencies>
-		<package.deb.dependencies>
-			${package.dependencies},
-			${package.prefix}-system-ruby (>= 2.2.0)
-		</package.deb.dependencies>
 	</properties>
 
 	<build>

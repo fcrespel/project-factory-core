@@ -73,7 +73,7 @@
 		<package.arch>noarch</package.arch>
 		<package.disabled>false</package.disabled>
 		<package.dependencies></package.dependencies>
-		<package.dependencies.default>${package.prefix}-core</package.dependencies.default>
+		<package.dependencies.default>${package.prefix}-core >= 3.3.0</package.dependencies.default>
 		<package.rpm.disabled>${package.disabled}</package.rpm.disabled>
 		<package.rpm.dependencies>${package.dependencies}</package.rpm.dependencies>
 		<package.rpm.dependencies.default>${package.dependencies.default}</package.rpm.dependencies.default>
@@ -220,6 +220,20 @@
 							</configuration>
 						</execution>
 						<execution>
+							<id>initialize-deb-dependencies-tmp</id>
+							<phase>initialize</phase>
+							<goals>
+								<goal>regex-property</goal>
+							</goals>
+							<configuration>
+								<name>package.deb.dependencies.all.fixed.tmp</name>
+								<value>${package.deb.dependencies.all}</value>
+								<regex>(?:^\s*,)|(?:[\r\n\t])|(?:,\s*$)</regex>
+								<replacement></replacement>
+								<failIfNoMatch>false</failIfNoMatch>
+							</configuration>
+						</execution>
+						<execution>
 							<id>initialize-deb-dependencies</id>
 							<phase>initialize</phase>
 							<goals>
@@ -227,9 +241,9 @@
 							</goals>
 							<configuration>
 								<name>package.deb.dependencies.all.fixed</name>
-								<value>${package.deb.dependencies.all}</value>
-								<regex>(?:^\s*,)|(?:[\r\n\t])|(?:,\s*$)</regex>
-								<replacement></replacement>
+								<value>${package.deb.dependencies.all.fixed.tmp}</value>
+								<regex>( +)((?:&gt;=|=|&lt;=)[ 0-9.-]+)</regex>
+								<replacement>$$1($$2)</replacement>
 								<failIfNoMatch>false</failIfNoMatch>
 							</configuration>
 						</execution>
