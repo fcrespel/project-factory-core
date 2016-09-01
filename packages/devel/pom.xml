@@ -47,7 +47,7 @@
 			${system.package.createrepo},
 			${system.package.subversion},
 			${system.package.git},
-			${system.package.java7-devel},
+			${system.package.java8-devel},
 			${system.package.php},
 			${system.package.php-curl},
 			${system.package.php-pear},
