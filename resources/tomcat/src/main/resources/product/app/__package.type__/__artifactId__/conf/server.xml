@@ -46,7 +46,8 @@
         </Realm>
       </Realm>
 
-      <Valve className="org.apache.catalina.valves.RemoteIpValve" protocolHeader="X-Forwarded-Proto" />
+      <Valve className="org.apache.catalina.valves.RemoteIpValve" protocolHeader="X-Forwarded-Proto"
+             portHeader="X-Forwarded-Port" changeLocalPort="true" />
 
       <Host name="localhost" appBase="webapps"
             unpackWARs="true" autoDeploy="true">
