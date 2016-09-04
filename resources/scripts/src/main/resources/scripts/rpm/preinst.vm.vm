@@ -4,7 +4,7 @@
 
 # Log start
 INSTALL_LOG="@{product.log}/system/core/install.log"
-echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall start" >> "$INSTALL_LOG"
+echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} preinstall start" >> "$INSTALL_LOG"
 
 # Create user/group
 getent group "@{package.group}" >/dev/null || groupadd -r "@{package.group}"
@@ -27,10 +27,10 @@ SCRIPT_RET=$?
 if [ $SCRIPT_RET -ne 0 ]; then
 	cat "$SCRIPT_OUTPUT" | tee -a "$INSTALL_LOG"
 	rm -f "$SCRIPT_OUTPUT"
-	echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall failure" >> "$INSTALL_LOG"
+	echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} preinstall failure" >> "$INSTALL_LOG"
 else
 	cat "$SCRIPT_OUTPUT" >> "$INSTALL_LOG"
 	rm -f "$SCRIPT_OUTPUT"
-	echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall success" >> "$INSTALL_LOG"
+	echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} preinstall success" >> "$INSTALL_LOG"
 fi
 exit $SCRIPT_RET

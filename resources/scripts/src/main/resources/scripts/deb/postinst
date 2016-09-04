@@ -4,5 +4,5 @@
 
 # Log start/success
 INSTALL_LOG="@{product.log}/system/core/install.log"
-echo "[$(date --rfc-3339=seconds)] @{package.name} postinstall start" >> "$INSTALL_LOG"
-echo "[$(date --rfc-3339=seconds)] @{package.name} postinstall success" >> "$INSTALL_LOG"
+echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} postinstall start" >> "$INSTALL_LOG"
+echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} postinstall success" >> "$INSTALL_LOG"

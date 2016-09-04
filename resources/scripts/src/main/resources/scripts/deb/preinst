@@ -4,7 +4,7 @@
 
 # Log start
 INSTALL_LOG="@{product.log}/system/core/install.log"
-echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall start" >> "$INSTALL_LOG"
+echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} preinstall start" >> "$INSTALL_LOG"
 
 # Create user/group
 getent group "@{package.group}" >/dev/null || groupadd -r "@{package.group}"
@@ -16,4 +16,4 @@ else
 fi
 
 # Log end
-echo "[$(date --rfc-3339=seconds)] @{package.name} preinstall success" >> "$INSTALL_LOG"
+echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} preinstall success" >> "$INSTALL_LOG"

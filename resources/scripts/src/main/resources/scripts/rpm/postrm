@@ -2,5 +2,5 @@
 
 # Log start/success
 INSTALL_LOG="@{product.log}/system/core/install.log"
-echo "[$(date --rfc-3339=seconds)] @{package.name} postremove start" >> "$INSTALL_LOG"
-echo "[$(date --rfc-3339=seconds)] @{package.name} postremove success" >> "$INSTALL_LOG"
+echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} postremove start" >> "$INSTALL_LOG"
+echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} postremove success" >> "$INSTALL_LOG"

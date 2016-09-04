@@ -5,7 +5,7 @@
 
 # Log start
 INSTALL_LOG="@{product.log}/system/core/install.log"
-echo "[$(date --rfc-3339=seconds)] @{package.name} postinstall start" >> "$INSTALL_LOG"
+echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} postinstall start" >> "$INSTALL_LOG"
 
 # Execute script
 SCRIPT_OUTPUT=`mktemp`
@@ -19,10 +19,10 @@ SCRIPT_RET=$?
 if [ $SCRIPT_RET -ne 0 ]; then
 	cat "$SCRIPT_OUTPUT" | tee -a "$INSTALL_LOG"
 	rm -f "$SCRIPT_OUTPUT"
-	echo "[$(date --rfc-3339=seconds)] @{package.name} postinstall failure" >> "$INSTALL_LOG"
+	echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} postinstall failure" >> "$INSTALL_LOG"
 else
 	cat "$SCRIPT_OUTPUT" >> "$INSTALL_LOG"
 	rm -f "$SCRIPT_OUTPUT"
-	echo "[$(date --rfc-3339=seconds)] @{package.name} postinstall success" >> "$INSTALL_LOG"
+	echo "[$(date --rfc-3339=seconds)] @{package.name}-@{package.version}-@{package.release}.@{product.release}.@{system.distribution} postinstall success" >> "$INSTALL_LOG"
 fi
 exit $SCRIPT_RET
