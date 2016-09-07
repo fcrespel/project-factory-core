@@ -42,7 +42,7 @@
 		<package.log>${product.log}/${project.artifactId}</package.log>
 		<package.dependencies>
 			${package.prefix}-system-maven3,
-			${package.prefix}-system-ruby >= 2.2.0,
+			${package.prefix}-system-ruby >= 2.3.0,
 			${system.package.rpm-build},
 			${system.package.createrepo},
 			${system.package.subversion},
