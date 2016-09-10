@@ -745,6 +745,7 @@
 										<nonFilteredFileExtension>swf</nonFilteredFileExtension>
 										<nonFilteredFileExtension>jar</nonFilteredFileExtension>
 										<nonFilteredFileExtension>hpi</nonFilteredFileExtension>
+										<nonFilteredFileExtension>jpi</nonFilteredFileExtension>
 										<nonFilteredFileExtension>class</nonFilteredFileExtension>
 										<nonFilteredFileExtension>mo</nonFilteredFileExtension>
 									</nonFilteredFileExtensions>
@@ -912,6 +913,7 @@
 										<nonFilteredFileExtension>swf</nonFilteredFileExtension>
 										<nonFilteredFileExtension>jar</nonFilteredFileExtension>
 										<nonFilteredFileExtension>hpi</nonFilteredFileExtension>
+										<nonFilteredFileExtension>jpi</nonFilteredFileExtension>
 										<nonFilteredFileExtension>class</nonFilteredFileExtension>
 										<nonFilteredFileExtension>mo</nonFilteredFileExtension>
 									</nonFilteredFileExtensions>
