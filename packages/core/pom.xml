@@ -42,12 +42,14 @@
 		<package.rpm.directoryIncluded>true</package.rpm.directoryIncluded>
 		<package.rpm.dependencies.default>
 			${system.package.lsb},
+			${system.package.bash-completion},
 			/usr/bin/getent,
 			/usr/sbin/useradd,
 			/usr/sbin/groupadd
 		</package.rpm.dependencies.default>
 		<package.deb.dependencies.default>
-			${system.package.lsb}
+			${system.package.lsb},
+			${system.package.bash-completion}
 		</package.deb.dependencies.default>
 	</properties>
 	
@@ -78,6 +80,15 @@
 										<sources>
 											<softlinkSource>
 												<location>${product.bin}/admin.sh</location>
+												<destination>${product.id}-admin</destination>
+											</softlinkSource>
+										</sources>
+									</mapping>
+									<mapping>
+										<directory>${system.bash.completion.data}</directory>
+										<sources>
+											<softlinkSource>
+												<location>${product.bin}/admin.completion.sh</location>
 												<destination>${product.id}-admin</destination>
 											</softlinkSource>
 										</sources>
@@ -152,6 +163,16 @@
 										<type>link</type>
 										<linkName>${system.bin}/${product.id}-admin</linkName>
 										<linkTarget>${product.bin}/admin.sh</linkTarget>
+										<mapper>
+											<type>perm</type>
+											<user>${package.user}</user>
+											<group>${package.group}</group>
+										</mapper>
+									</data>
+									<data>
+										<type>link</type>
+										<linkName>${system.bash.completion.data}/${product.id}-admin</linkName>
+										<linkTarget>${product.bin}/admin.completion.sh</linkTarget>
 										<mapper>
 											<type>perm</type>
 											<user>${package.user}</user>
