@@ -50,6 +50,8 @@
 			${system.package.java8-devel},
 			${system.package.php},
 			${system.package.php-curl},
+			${system.package.php-mbstring},
+			${system.package.php-pdo},
 			${system.package.php-pear},
 			${system.package.php-xml},
 			${system.package.python},
