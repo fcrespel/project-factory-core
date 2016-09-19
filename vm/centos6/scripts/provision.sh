@@ -24,7 +24,7 @@ fi
 # Install EPEL repository
 echo
 echo "Installing EPEL repository ..."
-if ! rpm -q "$EPEL_REPO_PKG" >/dev/null && ! yum -y -q -e 0 install "$EPEL_REPO_URL"; then
+if ! installpackages "$EPEL_REPO_PKG"; then
 	echo "Failed to install EPEL repository, please ensure that the VM has internet access."
 	echo "You may run 'vagrant provision' to retry."
 	exit 1
@@ -98,6 +98,10 @@ if ! grep -q "$PF_DOMAIN" "/etc/hosts"; then
 	echo "127.0.0.2   $PF_DOMAIN" >> "/etc/hosts"
 fi
 
+# Configure motd
+echo "Configuring motd ..."
+sed -i 's#PrintMotd no#PrintMotd yes#g' "/etc/ssh/sshd_config"
+
 # Configure resolv.conf (IPv6 bug with DNS resolving)
 echo "Configuring resolv.conf ..."
 if ! grep -q "options single-request-reopen" "/etc/resolv.conf"; then
@@ -128,6 +132,12 @@ echo "Configuring services ..."
 chkconfig iptables off && service iptables stop > /dev/null
 chkconfig ip6tables off && service ip6tables stop > /dev/null
 chkconfig httpd on && service httpd restart > /dev/null
+service sshd reload > /dev/null
+# Show welcome info
+echo
+echo "==============================================================================="
+echo "Welcome to your Project Factory server"
+echo "More info: http://www.project-factory.fr"
 
 # Show IP addresses
 echo
@@ -140,6 +150,6 @@ echo "Platform users:"
 ( . "$PF_ROOT/bin/loadenv.sh" && echo -e "\troot:\t$ROOT_PASSWORD" )
 ( . "$PF_ROOT/bin/loadenv.sh" && echo -e "\tbot:\t$BOT_PASSWORD" )
 
-# Show main URL
+# Show platform URL
 echo
-echo "You may now browse to http://$PF_DOMAIN to get started!"
+echo "Platform URL: http://$PF_DOMAIN"

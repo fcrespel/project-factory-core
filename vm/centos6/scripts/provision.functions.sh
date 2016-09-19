@@ -7,14 +7,27 @@
 # Install packages if they are not already available
 function installpackages
 {
-	local PACKAGES="$1"
+	local PACKAGES="$*"
 	local PACKAGES_TOINSTALL=""
 	for PACKAGE in $PACKAGES; do
-		if rpm -q "$PACKAGE" 2>&1 > /dev/null; then
-			echo -n "> Already installed: "
-			rpm -q "$PACKAGE"
+		PACKAGE_BASENAME=`basename "$PACKAGE"`
+		PACKAGE_BASENAME="${PACKAGE_BASENAME%.rpm}"
+		PACKAGE_BASENAME="${PACKAGE_BASENAME%.deb}"
+		if which rpm > /dev/null 2>&1; then
+			if rpm -q "$PACKAGE_BASENAME" 2>&1 > /dev/null; then
+				echo "> Already installed:" `rpm -q "$PACKAGE_BASENAME"`
+			else
+				PACKAGES_TOINSTALL="$PACKAGES_TOINSTALL $PACKAGE"
+			fi
+		elif which dpkg-query > /dev/null 2>&1; then
+			if dpkg-query -s "$PACKAGE_BASENAME" 2>&1 > /dev/null; then
+				echo "> Already installed:" `dpkg-query -W "$PACKAGE_BASENAME"`
+			else
+				PACKAGES_TOINSTALL="$PACKAGES_TOINSTALL $PACKAGE"
+			fi
 		else
-			PACKAGES_TOINSTALL="$PACKAGES_TOINSTALL $PACKAGE"
+			echo "ERROR: failed to detect package manager"
+			return 1
 		fi
 	done
 	if [ -z "$PACKAGES_TOINSTALL" ]; then
@@ -22,7 +35,20 @@ function installpackages
 	else
 		echo "> Installing: $PACKAGES_TOINSTALL"
 		echo
-		if ! yum -y -e 0 install $PACKAGES_TOINSTALL; then
+		if which yum > /dev/null 2>&1; then
+			if ! yum -y -e 0 install $PACKAGES_TOINSTALL; then
+				return 1
+			fi
+		elif which zypper > /dev/null 2>&1; then
+			if ! zypper -n install -l $PACKAGES_TOINSTALL; then
+				return 1
+			fi
+		elif which apt-get > /dev/null 2>&1; then
+			if ! apt-get -y install $PACKAGES_TOINSTALL; then
+				return 1
+			fi
+		else
+			echo "ERROR: failed to detect package manager"
 			return 1
 		fi
 	fi
@@ -55,7 +81,7 @@ function installoverlay
 	fi
 	
 	# Copy the overlay to a temporary directory, excluding .svn dirs
-	rsync -rltDE --exclude='.svn' "$OVERLAY_DIR/" "$TMP_DIR"
+	rsync -a --exclude='.svn' "$OVERLAY_DIR/" "$TMP_DIR"
 	
 	# Interpolate all .template files
 	find "$TMP_DIR" -type f -name '*.template' | while read TEMPLATE_FILE; do
@@ -63,11 +89,13 @@ function installoverlay
 		interpolatetemplate "$TEMPLATE_FILE" > "$INTERPOLATED_FILE"
 	done
 	
-	# Make all .sh scripts executable
+	# Make all .sh scripts and .so shared libs executable
 	find "$TMP_DIR" -type f -name '*.sh' -exec chmod +x '{}' \;
+	find "$TMP_DIR" -type f -name '*.so' -exec chmod +x '{}' \;
+	find "$TMP_DIR" -type f -name '*.so.*' -exec chmod +x '{}' \;
 	
 	# Copy interpolated overlay to target dir, excluding .template file
-	rsync -rltcDE --exclude='*.template' "$TMP_DIR/" "$TARGET_DIR"
+	rsync -ac --exclude='*.template' "$TMP_DIR/" "$TARGET_DIR"
 	
 	# Delete temporary directory
 	rm -Rf "$TMP_DIR"

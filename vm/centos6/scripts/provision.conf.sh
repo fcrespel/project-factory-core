@@ -5,8 +5,7 @@
 #
 
 # EPEL repo config
-EPEL_REPO_PKG="epel-release"
-EPEL_REPO_URL="http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm"
+EPEL_REPO_PKG="http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm"
 
 # PUIAS repo config
 PUIAS_KEY_URL="http://puias.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias"

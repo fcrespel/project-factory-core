@@ -3,5 +3,5 @@
 .settings
 target
 generated
-vm/.vagrant
-vm/scripts/provision.local.sh
+.vagrant
+provision.local.sh
