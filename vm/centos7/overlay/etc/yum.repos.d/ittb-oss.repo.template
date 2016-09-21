@@ -1,6 +1,6 @@
 [ittb-oss-releases]
 name=iT-Toolbox OSS Releases
-baseurl=https://cgi.it-toolbox.fr/repos/oss-releases/el7/
+baseurl=https://cgi.it-toolbox.fr/repos/yum/oss-releases/el7/
 enabled=%{ITTB_OSS_REPO_RELEASES_ENABLED}
 protect=0
 gpgcheck=0
@@ -11,7 +11,7 @@ type=rpm-md
 
 [ittb-oss-snapshots]
 name=iT-Toolbox OSS Snapshots
-baseurl=https://cgi.it-toolbox.fr/repos/oss-snapshots/el7/
+baseurl=https://cgi.it-toolbox.fr/repos/yum/oss-snapshots/el7/
 enabled=%{ITTB_OSS_REPO_SNAPSHOTS_ENABLED}
 protect=0
 gpgcheck=0
