@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Project Factory VM Provisioning Script
 # By Fabien CRESPEL <fabien@crespel.net>
@@ -38,8 +38,8 @@ if ! installpackages "$EPEL_REPO_PKG"; then
 	exit 1
 fi
 
-# Install Overlay
-echo "Installing Overlay ..."
+# Install overlay
+echo "Installing overlay ..."
 if ! installoverlay "/vagrant/overlay" "/"; then
 	echo "Failed to install overlay"
 	echo "You may run 'vagrant provision' to retry."
@@ -109,13 +109,15 @@ ServerName localhost
 fi
 
 # Configure Maven proxy
-echo "Configuring Maven proxy ..."
-sed -i '/^\s*<proxies>/,/<\/proxies>/d' "$PF_ROOT/data/system/maven/settings.xml"
-if [ -n "$PROXY_HOST" -a -n "$PROXY_PORT" ] && [ "$PROXY_PORT" -gt 0 ]; then
-	sed -i '
+if [ -e "$PF_ROOT/data/system/maven/settings.xml" ]; then
+	echo "Configuring Maven proxy ..."
+	sed -i '/^\s*<proxies>/,/<\/proxies>/d' "$PF_ROOT/data/system/maven/settings.xml"
+	if [ -n "$PROXY_HOST" -a -n "$PROXY_PORT" ] && [ "$PROXY_PORT" -gt 0 ]; then
+		sed -i '
 /^\s*<profiles>/ i\
 \t<proxies>\n\t\t<proxy>\n\t\t\t<active>true</active>\n\t\t\t<protocol>http</protocol>\n\t\t\t<host>'$PROXY_HOST'</host>\n\t\t\t<port>'$PROXY_PORT'</port>\n\t\t\t<nonProxyHosts>'$PF_DOMAIN'</nonProxyHosts>\n\t\t</proxy>\n\t\t<proxy>\n\t\t\t<active>true</active>\n\t\t\t<protocol>https</protocol>\n\t\t\t<host>'$PROXY_HOST'</host>\n\t\t\t<port>'$PROXY_PORT'</port>\n\t\t\t<nonProxyHosts>'$PF_DOMAIN'</nonProxyHosts>\n\t\t</proxy>\n\t</proxies>
 ' "$PF_ROOT/data/system/maven/settings.xml"
+	fi
 fi
 
 # Configure services

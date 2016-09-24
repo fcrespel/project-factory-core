@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Project Factory VM Provisioning Configuration
 # By Fabien CRESPEL <fabien@crespel.net>

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Project Factory VM Provisioning Functions
 # By Fabien CRESPEL <fabien@crespel.net>
@@ -13,15 +13,15 @@ function installpackages
 		PACKAGE_BASENAME=`basename "$PACKAGE"`
 		PACKAGE_BASENAME="${PACKAGE_BASENAME%.rpm}"
 		PACKAGE_BASENAME="${PACKAGE_BASENAME%.deb}"
-		if which rpm > /dev/null 2>&1; then
-			if rpm -q "$PACKAGE_BASENAME" 2>&1 > /dev/null; then
-				echo "> Already installed:" `rpm -q "$PACKAGE_BASENAME"`
+		if which dpkg-query > /dev/null 2>&1; then
+			if dpkg-query -s "$PACKAGE_BASENAME" > /dev/null 2>&1; then
+				echo "> Already installed:" `dpkg-query -W "$PACKAGE_BASENAME"`
 			else
 				PACKAGES_TOINSTALL="$PACKAGES_TOINSTALL $PACKAGE"
 			fi
-		elif which dpkg-query > /dev/null 2>&1; then
-			if dpkg-query -s "$PACKAGE_BASENAME" 2>&1 > /dev/null; then
-				echo "> Already installed:" `dpkg-query -W "$PACKAGE_BASENAME"`
+		elif which rpm > /dev/null 2>&1; then
+			if rpm -q "$PACKAGE_BASENAME" > /dev/null 2>&1; then
+				echo "> Already installed:" `rpm -q "$PACKAGE_BASENAME"`
 			else
 				PACKAGES_TOINSTALL="$PACKAGES_TOINSTALL $PACKAGE"
 			fi
@@ -44,7 +44,7 @@ function installpackages
 				return 1
 			fi
 		elif which apt-get > /dev/null 2>&1; then
-			if ! apt-get -y install $PACKAGES_TOINSTALL; then
+			if ! DEBIAN_FRONTEND="noninteractive" apt-get -q -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --allow-unauthenticated --no-install-recommends install $PACKAGES_TOINSTALL; then
 				return 1
 			fi
 		else
