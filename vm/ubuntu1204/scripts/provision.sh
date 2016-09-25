@@ -123,10 +123,6 @@ if ! grep -q "$PF_DOMAIN" "/etc/hosts"; then
 	echo "127.0.0.2   $PF_DOMAIN" >> "/etc/hosts"
 fi
 
-# Configure motd
-echo "Configuring motd ..."
-sed -i 's#PrintMotd no#PrintMotd yes#g' "/etc/ssh/sshd_config"
-
 # Configure Maven proxy
 if [ -e "$PF_ROOT/data/system/maven/settings.xml" ]; then
 	echo "Configuring Maven proxy ..."
