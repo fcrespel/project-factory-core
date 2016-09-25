@@ -90,7 +90,7 @@ function basic_single_escape
 function enableservice
 {
 	local SERVICE="$1"
-	local RELOAD="$2"
+	local ACTION="$2"
 	local RET=0
 	if [ -e "@{system.init}/$SERVICE" ]; then
 		[ -x "@{system.init}/$SERVICE" ] || chmod +x "@{system.init}/$SERVICE"
@@ -100,10 +100,17 @@ function enableservice
 				printerror "ERROR: failed to start service '$SERVICE'"
 				RET=1
 			fi
-		elif [ "$RELOAD" = "1" -o "$RELOAD" = "reload" ]; then
-			if ! service $SERVICE force-reload > /dev/null; then
-				printerror "ERROR: failed to reload service '$SERVICE'"
-				RET=1
+		else
+			if [ "$ACTION" = "reload" ]; then
+				if ! service $SERVICE force-reload > /dev/null; then
+					printerror "ERROR: failed to reload service '$SERVICE'"
+					RET=1
+				fi
+			elif [ "$ACTION" = "restart" ]; then
+				if ! service $SERVICE restart > /dev/null; then
+					printerror "ERROR: failed to restart service '$SERVICE'"
+					RET=1
+				fi
 			fi
 		fi
 	else
