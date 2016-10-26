@@ -109,18 +109,6 @@ function ensurepassword
 	fi
 }
 
-# Simple escape mechanism (\-escape any ' and \), taken from mysql_secure_installation
-function basic_single_escape
-{
-    # The quoting on this sed command is a bit complex.  Single-quoted strings
-    # don't allow *any* escape mechanism, so they cannot contain a single
-    # quote.  The string sed gets (as argv[1]) is:  s/\(['\]\)/\\\1/g
-    #
-    # Inside a character class, \ and ' are not special, so the ['\] character
-    # class is balanced and contains two characters.
-    echo "$1" | sed 's/\(['"'"'\]\)/\\\1/g'
-}
-
 # Enable and start a service
 function enableservice
 {
@@ -374,4 +362,109 @@ function create_truststore
 	if [ -e "$TRUSTSTORE" -a -n "$TRUSTSTORE_USER" -a -n "$TRUSTSTORE_GROUP" ]; then
 		chown $TRUSTSTORE_USER:$TRUSTSTORE_GROUP "$TRUSTSTORE"
 	fi
+}
+
+# List installed packages
+function listpackages
+{
+	local PACKAGES="$1"
+	if which dpkg > /dev/null 2>&1; then
+		dpkg -l | grep "$PACKAGES" | sort
+	elif which rpm > /dev/null 2>&1; then
+		rpm -qa | grep "$PACKAGES" | sort
+	else
+		printerror "ERROR: failed to detect package manager"
+		return 1
+	fi
+}
+
+# Install a package if not already installed
+function installpackage
+{
+	local PACKAGE="$1"
+	local RET=0
+	if listpackages | grep -q "$PACKAGE"; then
+		echo "Package '$PACKAGE' is already installed"
+	else
+		if which apt-get > /dev/null 2>&1; then
+			DEBIAN_FRONTEND="noninteractive" apt-get -q -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --allow-unauthenticated --no-install-recommends install "$PACKAGE"
+			RET=$?
+		elif which yum > /dev/null 2>&1; then
+			yum -y -e 0 install "$PACKAGE"
+			RET=$?
+		elif which zypper > /dev/null 2>&1; then
+			zypper -n install -l "$PACKAGE"
+			RET=$?
+		else
+			printerror "ERROR: failed to detect package manager"
+			RET=1
+		fi
+		if [ $RET -eq 0 ]; then
+			printsuccess "Package '$PACKAGE' successfully installed"
+		else
+			printerror "ERROR: failed to install package '$PACKAGE'"
+		fi
+	fi
+	return $RET
+}
+
+# Update an installed package
+function updatepackage
+{
+	local PACKAGE="$1"
+	local RET=0
+	if ! listpackages | grep -q "$PACKAGE"; then
+		printerror "ERROR: package '$PACKAGE' is not installed"
+		RET=1
+	else
+		if which apt-get > /dev/null 2>&1; then
+			DEBIAN_FRONTEND="noninteractive" apt-get -q -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --allow-unauthenticated --no-install-recommends install --only-upgrade "$PACKAGE"
+			RET=$?
+		elif which yum > /dev/null 2>&1; then
+			yum -y -e 0 update "$PACKAGE"
+			RET=$?
+		elif which zypper > /dev/null 2>&1; then
+			zypper -n update -l "$PACKAGE"
+			RET=$?
+		else
+			printerror "ERROR: failed to detect package manager"
+			RET=1
+		fi
+		if [ $RET -eq 0 ]; then
+			printsuccess "Package '$PACKAGE' successfully updated"
+		else
+			printerror "ERROR: failed to update package '$PACKAGE'"
+		fi
+	fi
+	return $RET
+}
+
+# Remove an installed package
+function removepackage
+{
+	local PACKAGE="$1"
+	local RET=0
+	if ! listpackages | grep -q "$PACKAGE"; then
+		echo "Package '$PACKAGE' is not installed"
+	else
+		if which apt-get > /dev/null 2>&1; then
+			DEBIAN_FRONTEND="noninteractive" apt-get -q -y remove "$PACKAGE"
+			RET=$?
+		elif which yum > /dev/null 2>&1; then
+			yum -y -e 0 erase "$PACKAGE"
+			RET=$?
+		elif which zypper > /dev/null 2>&1; then
+			zypper -n remove "$PACKAGE"
+			RET=$?
+		else
+			printerror "ERROR: failed to detect package manager"
+			RET=1
+		fi
+		if [ $RET -eq 0 ]; then
+			printsuccess "Package '$PACKAGE' successfully removed"
+		else
+			printerror "ERROR: failed to remove package '$PACKAGE'"
+		fi
+	fi
+	return $RET
 }

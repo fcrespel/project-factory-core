@@ -32,3 +32,6 @@ PROXY_PORT="@{proxy.port}"
 # Platform users
 ROOT_USER="@{root.user}"
 BOT_USER="@{bot.user}"
+
+# Package configuration
+PACKAGE_PREFIX="@{package.prefix}"
