@@ -106,7 +106,7 @@
 										<directory>${system.cron.data.daily}</directory>
 										<sources>
 											<softlinkSource>
-												<location>${product.bin}/cron.daily.sh</location>
+												<location>${package.app}/cron/cron.daily.sh</location>
 												<destination>${product.id}.sh</destination>
 											</softlinkSource>
 										</sources>
@@ -115,7 +115,7 @@
 										<directory>${system.cron.data.hourly}</directory>
 										<sources>
 											<softlinkSource>
-												<location>${product.bin}/cron.hourly.sh</location>
+												<location>${package.app}/cron/cron.hourly.sh</location>
 												<destination>${product.id}.sh</destination>
 											</softlinkSource>
 										</sources>
@@ -192,7 +192,7 @@
 									<data>
 										<type>link</type>
 										<linkName>${system.cron.data.daily}/${product.id}.sh</linkName>
-										<linkTarget>${product.bin}/cron.daily.sh</linkTarget>
+										<linkTarget>${package.app}/cron/cron.daily.sh</linkTarget>
 										<mapper>
 											<type>perm</type>
 											<user>${package.user}</user>
@@ -202,7 +202,7 @@
 									<data>
 										<type>link</type>
 										<linkName>${system.cron.data.hourly}/${product.id}.sh</linkName>
-										<linkTarget>${product.bin}/cron.hourly.sh</linkTarget>
+										<linkTarget>${package.app}/cron/cron.hourly.sh</linkTarget>
 										<mapper>
 											<type>perm</type>
 											<user>${package.user}</user>

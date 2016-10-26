@@ -14,7 +14,7 @@ chown @{product.user}:@{product.group} "@{product.bin}/cron.5mins" "@{product.bi
 chmod ug=rwX "@{product.bin}/cron.5mins" "@{product.bin}/cron.daily" "@{product.bin}/cron.hourly"
 
 # Configure cron jobs
-crontab -u @{package.user} "@{product.app}/system/cron/crontab"
+crontab -u @{package.user} "@{package.app}/cron/crontab"
 
 # Configure user profile
 PROFILE_FILE="@{product.root}/.bash_profile"

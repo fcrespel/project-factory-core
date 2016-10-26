@@ -4,7 +4,8 @@
 # By Fabien CRESPEL <fabien@crespel.net>
 #
 
-# Core data directory
+# Core directories
+CORE_APP_DIR="@{product.app}/system/core"
 CORE_DATA_DIR="@{product.data}/system/core"
 
 # Include shared functions
@@ -12,14 +13,17 @@ for FILE in @{product.bin}/functions*.sh; do
 	. $FILE
 done
 
-# Load configuration file
+# Load configuration files
+if [ -f "$CORE_APP_DIR/config.sh" ]; then
+	. "$CORE_APP_DIR/config.sh"
+fi
 if [ -f "$CORE_DATA_DIR/config.sh" ]; then
 	. "$CORE_DATA_DIR/config.sh"
 fi
 
 # Load passwords file and ensure its permissions are reasonable
 if [ -f "$CORE_DATA_DIR/passwd.sh" ]; then
-	chmod 550 "$CORE_DATA_DIR/passwd.sh"
+	chmod 550 "$CORE_DATA_DIR/passwd.sh" > /dev/null 2>&1
 	. "$CORE_DATA_DIR/passwd.sh"
 fi
 
