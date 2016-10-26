@@ -52,6 +52,41 @@ function storevar
 	fi
 }
 
+# Add a value to a variable in a configuration file
+function addvar
+{
+	local VAR="$1"
+	local VALUE="$2"
+	local CONFIG_FILE="$3"
+	if ! containsvar "$VAR" "$VALUE"; then
+		local VALUES="${!VAR}"
+		VALUES=`echo "$VALUES $VALUE" | sed -r 's#^\s+|\s+$##g'`
+		storevar "$VAR" "$VALUES" "$CONFIG_FILE"
+	fi
+}
+
+# Remove a value from a variable in a configuration file
+function removevar
+{
+	local VAR="$1"
+	local VALUE="$2"
+	local CONFIG_FILE="$3"
+	if containsvar "$VAR" "$VALUE"; then
+		local VALUES="${!VAR}"
+		VALUES=`echo "$VALUES" | sed -r "s#(^|\\s)$VALUE(\\s|\$)# #g" | sed -r 's#^\s+|\s+$##g'`
+		storevar "$VAR" "$VALUES" "$CONFIG_FILE"
+	fi
+}
+
+# Check if a variable contains a value
+function containsvar
+{
+	local VAR="$1"
+	local VALUE="$2"
+	local VALUES="${!VAR}"
+	echo "$VALUES" | grep -q -E "(^|\\s)$VALUE(\\s|\$)"
+}
+
 # Generate a random password
 function genpassword
 {
@@ -67,7 +102,7 @@ function ensurepassword
 {
 	local VAR="$1"
 	local LENGTH="$2"
-	local VALUE=`eval "echo -n \\$$VAR"`
+	local VALUE="${!VAR}"
 	if [ -z "$VALUE" ]; then
 		VALUE=`genpassword $LENGTH`
 		storevar "$VAR" "$VALUE"
@@ -94,6 +129,14 @@ function enableservice
 	local RET=0
 	if [ -e "@{system.init}/$SERVICE" ]; then
 		[ -x "@{system.init}/$SERVICE" ] || chmod +x "@{system.init}/$SERVICE"
+		if containsvar "SERVICES_DISABLED" "$SERVICE"; then
+			if [ "$ACTION" = "force" ]; then
+				removevar "SERVICES_DISABLED" "$SERVICE"
+			else
+				printerror "WARNING: ignoring disabled service '$SERVICE'"
+				return $RET
+			fi
+		fi
 		/usr/lib/lsb/install_initd "@{system.init}/$SERVICE"
 		if ! service $SERVICE status > /dev/null 2>&1; then
 			if ! service $SERVICE start > /dev/null; then
@@ -124,9 +167,16 @@ function enableservice
 function startservice
 {
 	local SERVICE="$1"
+	local ACTION="$2"
 	local RET=0
 	if [ -e "@{system.init}/$SERVICE" ]; then
 		[ -x "@{system.init}/$SERVICE" ] || chmod +x "@{system.init}/$SERVICE"
+		if containsvar "SERVICES_DISABLED" "$SERVICE"; then
+			if [ "$ACTION" != "force" ]; then
+				printerror "WARNING: ignoring disabled service '$SERVICE'"
+				return $RET
+			fi
+		fi
 		if ! service $SERVICE status > /dev/null 2>&1; then
 			if ! service $SERVICE start > /dev/null; then
 				printerror "ERROR: failed to start service '$SERVICE'"
@@ -140,13 +190,36 @@ function startservice
 	return $RET
 }
 
-# Reload a service
-function reloadservice
+# Query the status of a service
+function statusservice
 {
 	local SERVICE="$1"
 	local RET=0
 	if [ -e "@{system.init}/$SERVICE" ]; then
 		[ -x "@{system.init}/$SERVICE" ] || chmod +x "@{system.init}/$SERVICE"
+		service $SERVICE status
+		RET=$?
+	else
+		printerror "ERROR: failed to find service '$SERVICE'"
+		RET=2
+	fi
+	return $RET
+}
+
+# Reload a service
+function reloadservice
+{
+	local SERVICE="$1"
+	local ACTION="$2"
+	local RET=0
+	if [ -e "@{system.init}/$SERVICE" ]; then
+		[ -x "@{system.init}/$SERVICE" ] || chmod +x "@{system.init}/$SERVICE"
+		if containsvar "SERVICES_DISABLED" "$SERVICE"; then
+			if [ "$ACTION" != "force" ]; then
+				printerror "WARNING: ignoring disabled service '$SERVICE'"
+				return $RET
+			fi
+		fi
 		if service $SERVICE status > /dev/null 2>&1; then
 			if ! service $SERVICE force-reload > /dev/null; then
 				printerror "ERROR: failed to reload service '$SERVICE'"
@@ -178,9 +251,13 @@ function stopservice
 function disableservice
 {
 	local SERVICE="$1"
+	local ACTION="$2"
 	local RET=0
 	if [ -e "@{system.init}/$SERVICE" ]; then
 		[ -x "@{system.init}/$SERVICE" ] || chmod +x "@{system.init}/$SERVICE"
+		if [ "$ACTION" = "force" ]; then
+			addvar "SERVICES_DISABLED" "$SERVICE"
+		fi
 		if service $SERVICE status > /dev/null 2>&1; then
 			if ! service $SERVICE stop > /dev/null; then
 				printerror "ERROR: failed to stop service '$SERVICE'"
