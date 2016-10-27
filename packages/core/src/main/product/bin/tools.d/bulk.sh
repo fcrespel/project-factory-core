@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Mass processing script.
+# Bulk processing script.
 # By Fabien CRESPEL <fabien@crespel.net>
 #
 
@@ -31,7 +31,7 @@ fi
 
 # Header
 printinfo $SEPARATOR
-printinfo "Mass processing - Script: $SCRIPT_FILE - File: $ARGS_FILE"
+printinfo "Bulk processing - Script: $SCRIPT_FILE - File: $ARGS_FILE"
 printinfo $SEPARATOR
 echo
 
@@ -51,7 +51,7 @@ cat "$ARGS_FILE" | sed -r "s#^${QUOTE}|${QUOTE}\$##g" | awk -v FS="${QUOTE}?[,; 
 		printerror "ERROR: last script failed with exit code: $EXITCODE"
 		printerror $SEPARATOR
 		echo
-		printerror "Mass processing aborted."
+		printerror "Bulk processing aborted."
 		exit 1
 	else
 		echo
@@ -62,7 +62,7 @@ done
 # Footer
 echo
 printinfo $SEPARATOR
-printinfo "Mass processing finished"
+printinfo "Bulk processing finished"
 printinfo $SEPARATOR
 
 exit 0
