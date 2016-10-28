@@ -12,8 +12,8 @@ PUIAS_KEY_URL="http://puias.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puia
 PUIAS_KEY_FILE="/etc/pki/rpm-gpg/RPM-GPG-KEY-puias"
 
 # iT-Toolbox OSS repo config
-ITTB_OSS_REPO_RELEASES_ENABLED="0"
-ITTB_OSS_REPO_SNAPSHOTS_ENABLED="1"
+ITTB_OSS_REPO_RELEASES_ENABLED="1"
+ITTB_OSS_REPO_SNAPSHOTS_ENABLED="0"
 
 # Project Factory config
 PF_PKG_PREFIX="dev-projectfactory"

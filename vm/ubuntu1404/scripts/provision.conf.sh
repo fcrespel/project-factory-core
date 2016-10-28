@@ -5,9 +5,9 @@
 #
 
 # iT-Toolbox OSS repo config
-ITTB_OSS_REPO_RELEASES_ENABLED="0"
+ITTB_OSS_REPO_RELEASES_ENABLED="1"
 ITTB_OSS_REPO_RELEASES_LIST="deb https://cgi.it-toolbox.fr/repos/apt/oss-releases/ ubuntu1404 main"
-ITTB_OSS_REPO_SNAPSHOTS_ENABLED="1"
+ITTB_OSS_REPO_SNAPSHOTS_ENABLED="0"
 ITTB_OSS_REPO_SNAPSHOTS_LIST="deb https://cgi.it-toolbox.fr/repos/apt/oss-snapshots/ ubuntu1404 main"
 
 # Project Factory config

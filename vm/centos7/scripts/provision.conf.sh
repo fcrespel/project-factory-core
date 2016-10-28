@@ -8,8 +8,8 @@
 EPEL_REPO_PKG="http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm"
 
 # iT-Toolbox OSS repo config
-ITTB_OSS_REPO_RELEASES_ENABLED="0"
-ITTB_OSS_REPO_SNAPSHOTS_ENABLED="1"
+ITTB_OSS_REPO_RELEASES_ENABLED="1"
+ITTB_OSS_REPO_SNAPSHOTS_ENABLED="0"
 
 # Project Factory config
 PF_PKG_PREFIX="dev-projectfactory"
