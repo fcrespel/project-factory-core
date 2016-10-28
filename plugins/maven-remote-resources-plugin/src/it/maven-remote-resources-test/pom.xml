@@ -23,7 +23,7 @@ under the License.
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.maven</groupId>
   <artifactId>maven-remote-resources-test</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <url>http://maven.apache.org</url>
   <inceptionYear>2001</inceptionYear>
   <dependencies>
@@ -47,7 +47,7 @@ under the License.
         <version>@project.version@</version>
         <configuration>
           <artifacts>
-            <artifact>org.apache:apache-distribution-resources:1.0-SNAPSHOT</artifact>
+            <artifact>org.apache:apache-distribution-resources:1.0</artifact>
           </artifacts>
           <resourceBundles>
             <resourceBundle>org.apache.maven.plugins:maven-remote-resources-plugin:@project.version@</resourceBundle>
