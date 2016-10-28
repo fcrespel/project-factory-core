@@ -12,7 +12,7 @@ ITTB_OSS_REPO_RELEASES_ENABLED="1"
 ITTB_OSS_REPO_SNAPSHOTS_ENABLED="0"
 
 # Project Factory config
-PF_PKG_PREFIX="dev-projectfactory"
+PF_PKG_PREFIX="projectfactory"
 PF_PKG_DEFAULT="$PF_PKG_PREFIX-system-ldap $PF_PKG_PREFIX-service-portal"
 PF_PKG_EXTRA="$PF_PKG_PREFIX-service-cas $PF_PKG_PREFIX-admin-phpmyadmin $PF_PKG_PREFIX-admin-phpldapadmin"
 PF_USER="pf"
