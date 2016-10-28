@@ -1020,6 +1020,49 @@
 			</build>
 		</profile>
 		<profile>
+			<id>sign-package</id>
+			<activation>
+				<property>
+					<name>package.key.name</name>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>rpm-maven-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>package-rpm</id>
+									<configuration>
+										<keyname>${package.key.name}</keyname>
+										<keyPassphrase>
+											<passphrase>${package.key.passphrase}</passphrase>
+										</keyPassphrase>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+						<plugin>
+							<groupId>org.vafer</groupId>
+							<artifactId>jdeb</artifactId>
+							<executions>
+								<execution>
+									<id>package-deb</id>
+									<configuration>
+										<signPackage>true</signPackage>
+										<key>${package.key.name}</key>
+										<passphrase>${package.key.passphrase}</passphrase>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		<profile>
 			<id>rpm</id>
 			<activation>
 				<file>
