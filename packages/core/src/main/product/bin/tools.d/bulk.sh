@@ -11,13 +11,14 @@ SCRIPT_DIR=`dirname "$0"`
 # Script variables
 SCRIPT_FILE="$1"
 ARGS_FILE="$2"
+DELAY="$3"
 ESCAPE="\\"
 QUOTE='"'
 SEPARATOR="==============================================================================="
 
 # Check arguments
 if [ -z "$SCRIPT_FILE" -o -z "$ARGS_FILE" ]; then
-	echo "Usage: $0 <script file> <args file>"
+	echo "Usage: $0 <script file> <args file> [delay in seconds]"
 	exit 1
 fi
 if [ ! -e "$SCRIPT_FILE" ]; then
@@ -56,6 +57,9 @@ cat "$ARGS_FILE" | sed -r "s#^${QUOTE}|${QUOTE}\$##g" | awk -v FS="${QUOTE}?[,; 
 	else
 		echo
 		printsuccess "Script terminated successfully."
+	fi
+	if [ -n "$DELAY" -a "$DELAY" -gt 0 ]; then
+		sleep $DELAY
 	fi
 done
 
