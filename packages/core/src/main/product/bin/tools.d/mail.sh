@@ -12,7 +12,7 @@ SCRIPT_DIR=`dirname "$0"`
 USER_UID="$1"
 TEMPLATE_FILE="$2"
 MAIL_SUBJECT="$3"
-MAIL_FROM="$ROOT_USER@$PRODUCT_DOMAIN"
+MAIL_FROM="noreply@$PRODUCT_DOMAIN"
 LDAP_USER_RDN_ATTR="@{ldap.user.rdn.attr}"
 LDAP_USER_FIRSTNAME_ATTR="@{ldap.user.firstname.attr}"
 LDAP_USER_LASTNAME_ATTR="@{ldap.user.lastname.attr}"
@@ -36,7 +36,7 @@ fi
 USER_FIRSTNAME=`ldap_getattr "($LDAP_USER_RDN_ATTR=$USER_UID)" $LDAP_USER_FIRSTNAME_ATTR`
 USER_LASTNAME=`ldap_getattr "($LDAP_USER_RDN_ATTR=$USER_UID)" $LDAP_USER_LASTNAME_ATTR`
 USER_FULLNAME=`echo $USER_FIRSTNAME $USER_LASTNAME`
-USER_MAIL=`ldap_product_getattr "($LDAP_USER_RDN_ATTR=$USER_UID)" $LDAP_USER_MAIL_ATTR`
+USER_MAIL=`ldap_getattr "($LDAP_USER_RDN_ATTR=$USER_UID)" $LDAP_USER_MAIL_ATTR`
 if [ -z "$USER_MAIL" ]; then
 	echo "Could not find email address for user '$USER_UID'"
 	exit 1
