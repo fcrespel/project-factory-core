@@ -26,12 +26,12 @@
 	<parent>
 		<groupId>fr.project-factory</groupId>
 		<artifactId>project-factory-parent</artifactId>
-		<version>3.3.0-SNAPSHOT</version>
+		<version>3.3.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>fr.project-factory.core.packages</groupId>
 	<artifactId>packages</artifactId>
-	<version>3.3.0-SNAPSHOT</version>
+	<version>3.3.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Project Factory Core Packages</name>
@@ -56,7 +56,7 @@
 		<!-- Bundled properties -->
 		<properties.default.groupId>fr.project-factory.core.products</properties.default.groupId>
 		<properties.default.artifactId>default</properties.default.artifactId>
-		<properties.default.version>3.3.0-SNAPSHOT</properties.default.version>
+		<properties.default.version>3.3.1-SNAPSHOT</properties.default.version>
 		<properties.default.file>product-default.properties</properties.default.file>
 		<properties.system.groupId>${properties.default.groupId}</properties.system.groupId>
 		<properties.system.artifactId>${properties.default.artifactId}</properties.system.artifactId>
@@ -93,9 +93,9 @@
 		<package.user>${product.user}-${project.artifactId}</package.user>
 		<package.group>${product.group}</package.group>
 		<package.root>${product.root}</package.root>
-		<package.bundle.default>fr.project-factory.core.resources:default:3.3.0-SNAPSHOT</package.bundle.default>
-		<package.bundle.scripts>fr.project-factory.core.resources:scripts:3.3.0-SNAPSHOT</package.bundle.scripts>
-		<package.bundle.tomcat>fr.project-factory.core.resources:tomcat:3.3.0-SNAPSHOT</package.bundle.tomcat>
+		<package.bundle.default>fr.project-factory.core.resources:default:3.3.1-SNAPSHOT</package.bundle.default>
+		<package.bundle.scripts>fr.project-factory.core.resources:scripts:3.3.1-SNAPSHOT</package.bundle.scripts>
+		<package.bundle.tomcat>fr.project-factory.core.resources:tomcat:3.3.1-SNAPSHOT</package.bundle.tomcat>
 		<package.src.bundle>${package.bundle.default}</package.src.bundle>
 	</properties>
 
