@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>fr.project-factory.packages.services</groupId>
 		<artifactId>services</artifactId>
-		<version>3.3.0</version>
+		<version>3.3.1</version>
 	</parent>
 
 	<groupId>${groupId}</groupId>
