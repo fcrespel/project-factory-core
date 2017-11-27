@@ -5,11 +5,7 @@
 #
 
 # EPEL repo config
-EPEL_REPO_PKG="https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm"
-
-# PUIAS repo config
-PUIAS_KEY_URL="http://puias.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias"
-PUIAS_KEY_FILE="/etc/pki/rpm-gpg/RPM-GPG-KEY-puias"
+EPEL_REPO_PKG="https://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/e/epel-release-6-8.noarch.rpm"
 
 # iT-Toolbox OSS repo config
 ITTB_OSS_REPO_RELEASES_ENABLED="0"
