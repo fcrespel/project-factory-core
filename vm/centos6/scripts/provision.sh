@@ -30,14 +30,6 @@ if ! installpackages "$EPEL_REPO_PKG"; then
 	exit 1
 fi
 
-# Install PUIAS repository
-echo "Installing PUIAS repository ..."
-if [ ! -e "$PUIAS_KEY_FILE" ] && ! wget -q -O "$PUIAS_KEY_FILE" "$PUIAS_KEY_URL"; then
-	echo "Failed to install PUIAS GPG key, please ensure that the VM has internet access."
-	echo "You may run 'vagrant provision' to retry."
-	exit 1
-fi
-
 # Install overlay
 echo "Installing overlay ..."
 if ! installoverlay "/vagrant/overlay" "/"; then

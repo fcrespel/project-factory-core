@@ -5,7 +5,7 @@
 #
 
 # EPEL repo config
-EPEL_REPO_PKG="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+EPEL_REPO_PKG="https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm"
 
 # iT-Toolbox OSS repo config
 ITTB_OSS_REPO_RELEASES_ENABLED="1"
