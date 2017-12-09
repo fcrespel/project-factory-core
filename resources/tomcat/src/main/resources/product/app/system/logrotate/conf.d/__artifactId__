@@ -1,21 +1,9 @@
 @{package.log}/*log {
-    missingok
-    notifempty
-    weekly
-    rotate 52
-    dateext
-    compress
     copytruncate
     create 0644 @{package.user} @{package.group}
 }
 
 @{package.log}/catalina.out {
-    missingok
-    notifempty
-    weekly
-    rotate 52
-    dateext
-    compress
     copytruncate
     create 0644 @{package.user} @{package.group}
 }
