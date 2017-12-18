@@ -21,7 +21,7 @@ fi
 
 # Check arguments
 if [ -z "$SERVICE_NAME" ]; then
-	echo "Usage: $0 <service name>"
+	echo "Usage: $0 <service name> [arguments ...]"
 	echo "Available services: "
 	find "$BACKUP_DIR" -name 'backup-*.sh' -printf '%f\n' | sort | while read SERVICE; do
 		SERVICE="${SERVICE#backup-}"
@@ -36,7 +36,7 @@ fi
 # Execute backup
 echo "Executing $BACKUP_SCRIPT ..."
 chmod +x "$BACKUP_SCRIPT"
-if "$BACKUP_SCRIPT"; then
+if "$BACKUP_SCRIPT" "${@:2}"; then
 	echo "$BACKUP_SCRIPT completed successfully"
 else
 	RET=$?

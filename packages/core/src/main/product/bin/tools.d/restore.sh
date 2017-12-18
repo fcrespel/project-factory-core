@@ -21,7 +21,7 @@ fi
 
 # Check arguments
 if [ -z "$SERVICE_NAME" ]; then
-	echo "Usage: $0 <service name>"
+	echo "Usage: $0 <service name> [arguments ...]"
 	echo "Available services: "
 	find "$BACKUP_DIR" -name 'restore-*.sh' -printf '%f\n' | sort | while read SERVICE; do
 		SERVICE="${SERVICE#restore-}"
@@ -36,7 +36,7 @@ fi
 # Execute restore
 echo "Executing $RESTORE_SCRIPT ..."
 chmod +x "$RESTORE_SCRIPT"
-if "$RESTORE_SCRIPT"; then
+if "$RESTORE_SCRIPT" "${@:2}"; then
 	echo "$RESTORE_SCRIPT completed successfully"
 else
 	RET=$?
