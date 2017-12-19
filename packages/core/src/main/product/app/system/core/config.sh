@@ -19,11 +19,13 @@ PRODUCT_TMP="@{product.tmp}"
 PRODUCT_DOMAIN="@{product.domain}"
 PRODUCT_DOMAIN_ALIAS="@{product.domain.alias}"
 PRODUCT_THEME="@{product.theme}"
+PRODUCT_SCHEME="@{product.scheme}"
 PRODUCT_USER="@{product.user}"
 PRODUCT_GROUP="@{product.group}"
 PRODUCT_GROUP_ADMINS="@{product.group.admins}"
 PRODUCT_GROUP_SUPERVISORS="@{product.group.supervisors}"
 PRODUCT_GROUP_USERS="@{product.group.users}"
+PRODUCT_LOCALE="@{product.locale}"
 
 # Proxy configuration
 PROXY_HOST="@{proxy.host}"
