@@ -26,11 +26,11 @@
 	<parent>
 		<groupId>fr.project-factory.core.packages</groupId>
 		<artifactId>packages</artifactId>
-		<version>3.3.1-SNAPSHOT</version>
+		<version>3.4.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>core</artifactId>
-	<version>3.3.1-4-SNAPSHOT</version>
+	<version>3.4.0-1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Project Factory Core Packages - Core</name>

@@ -26,7 +26,7 @@
 	<parent>
 		<groupId>fr.project-factory</groupId>
 		<artifactId>project-factory-parent</artifactId>
-		<version>3.3.1-SNAPSHOT</version>
+		<version>3.4.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>fr.project-factory.core.products</groupId>
