@@ -73,7 +73,7 @@
 		<package.arch>noarch</package.arch>
 		<package.disabled>false</package.disabled>
 		<package.dependencies></package.dependencies>
-		<package.dependencies.default>${package.prefix}-core >= 3.3.0</package.dependencies.default>
+		<package.dependencies.default>${package.prefix}-core >= 3.4.0</package.dependencies.default>
 		<package.rpm.disabled>${package.disabled}</package.rpm.disabled>
 		<package.rpm.dependencies>${package.dependencies}</package.rpm.dependencies>
 		<package.rpm.dependencies.default>${package.dependencies.default}</package.rpm.dependencies.default>
