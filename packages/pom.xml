@@ -61,7 +61,7 @@
 		<properties.system.groupId>${properties.default.groupId}</properties.system.groupId>
 		<properties.system.artifactId>${properties.default.artifactId}</properties.system.artifactId>
 		<properties.system.version>${properties.default.version}</properties.system.version>
-		<properties.system.file>system-el6-x86_64.properties</properties.system.file>
+		<properties.system.file>system-el7-x86_64.properties</properties.system.file>
 		<properties.product.groupId>${properties.default.groupId}</properties.product.groupId>
 		<properties.product.artifactId>${properties.default.artifactId}</properties.product.artifactId>
 		<properties.product.version>${properties.default.version}</properties.product.version>
