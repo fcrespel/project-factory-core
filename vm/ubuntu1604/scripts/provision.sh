@@ -75,7 +75,7 @@ fi
 
 # Install Project Factory core package
 echo "Installing Project Factory core package ..."
-if ! installpackages "$PF_PKG_PREFIX-core"; then
+if ! installpackages "$PF_PKG_CORE"; then
 	echo "Failed to install Project Factory core package"
 	echo "You may run 'vagrant provision' to retry."
 	exit 1

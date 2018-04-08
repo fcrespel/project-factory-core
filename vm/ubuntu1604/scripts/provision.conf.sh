@@ -12,6 +12,7 @@ ITTB_OSS_REPO_SNAPSHOTS_LIST="deb https://cgi.it-toolbox.fr/repos/apt/oss-snapsh
 
 # Project Factory config
 PF_PKG_PREFIX="dev-projectfactory"
+PF_PKG_CORE="$PF_PKG_PREFIX-core"
 PF_PKG_DEFAULT="$PF_PKG_PREFIX-system-ldap $PF_PKG_PREFIX-service-portal"
 PF_PKG_EXTRA="$PF_PKG_PREFIX-service-cas $PF_PKG_PREFIX-admin-phpmyadmin $PF_PKG_PREFIX-admin-phpldapadmin"
 PF_USER="pf"

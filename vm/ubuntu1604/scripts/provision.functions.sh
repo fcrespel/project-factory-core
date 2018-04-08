@@ -13,6 +13,7 @@ function installpackages
 		PACKAGE_BASENAME=`basename "$PACKAGE"`
 		PACKAGE_BASENAME="${PACKAGE_BASENAME%.rpm}"
 		PACKAGE_BASENAME="${PACKAGE_BASENAME%.deb}"
+		PACKAGE_BASENAME=`echo "$PACKAGE_BASENAME" | sed -r 's#-[0-9]+$##g'`
 		if which dpkg-query > /dev/null 2>&1; then
 			if dpkg-query -s "$PACKAGE_BASENAME" > /dev/null 2>&1; then
 				echo "> Already installed:" `dpkg-query -W "$PACKAGE_BASENAME"`
