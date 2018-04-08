@@ -30,10 +30,10 @@ if ! installpackages rsync vim-enhanced; then
 	exit 1
 fi
 
-# Install EPEL repository
-echo "Installing EPEL repository ..."
-if ! installpackages "$EPEL_REPO_PKG"; then
-	echo "Failed to install EPEL repository, please ensure that the VM has internet access."
+# Install repositories
+echo "Installing repositories ..."
+if ! installpackages "$REPO_PKG"; then
+	echo "Failed to install repositories, please ensure that the VM has internet access."
 	echo "You may run 'vagrant provision' to retry."
 	exit 1
 fi
@@ -48,7 +48,7 @@ fi
 
 # Install Project Factory core package
 echo "Installing Project Factory core package ..."
-if ! installpackages "$PF_PKG_PREFIX-core"; then
+if ! installpackages "$PF_PKG_CORE"; then
 	echo "Failed to install Project Factory core package"
 	echo "You may run 'vagrant provision' to retry."
 	exit 1
