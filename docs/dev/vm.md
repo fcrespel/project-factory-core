@@ -4,12 +4,12 @@ title: Vagrant VM
 ---
 
 **IMPORTANT:** these instructions apply for a **development/test** setup.
-For a production platform, please refer to the [pre-requisites](../install/prereqs.html) and [packages installation](../install/packages.html) pages.
+For a production platform, please refer to the [prerequisites](../install/prereqs.html) and [packages installation](../install/packages.html) pages.
 
 - Table of contents
 {:toc}
 
-## Pre-requisites
+## Prerequisites
 
 -   The host machine must be running a **64-bit** OS with **more than 4 GB RAM free**.
 -   **VirtualBox** and **Vagrant** must be installed (see [Development environment](env.html)).

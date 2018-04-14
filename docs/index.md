@@ -11,7 +11,7 @@ See <http://project-factory.fr> for more information.
 
 Installation guide for production setup.
 
--   [Pre-requisites](install/prereqs.html)
+-   [Prerequisites](install/prereqs.html)
 -   [Packages installation](install/packages.html)
 
 ## Administration
@@ -29,5 +29,5 @@ Package and product development guide for integrators.
 -   [Vagrant VM](dev/vm.html)
 -   [Integration standards](dev/standards.html)
 -   [Service packaging](dev/packaging.html)
--   [Product configuration](dev/product.html)
+-   [Platform configuration](dev/product.html)
 -   [Building](dev/build.html)

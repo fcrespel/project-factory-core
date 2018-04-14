@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Pre-requisites
+title: Prerequisites
 ---
 
 **IMPORTANT:** these instructions apply for a **production** setup.
