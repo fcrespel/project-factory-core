@@ -11,7 +11,7 @@ See <http://project-factory.fr> for more information.
 
 Installation guide for production setup.
 
--   [Prerequisites](install/prereqs.html)
+-   [Requirements](install/reqs.html)
 -   [Packages installation](install/packages.html)
 
 ## Administration

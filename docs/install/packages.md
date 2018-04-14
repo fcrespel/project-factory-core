@@ -3,7 +3,7 @@ layout: page
 title: Packages installation
 ---
 
-**IMPORTANT:** [prerequisites](prereqs.html) must have been completed before any installation of **Project Factory** packages.
+**IMPORTANT:** [requirements](reqs.html) must have been completed before any installation of **Project Factory** packages.
 
 In the instructions below:
 

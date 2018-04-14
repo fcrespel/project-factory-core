@@ -4,7 +4,7 @@ title: Vagrant VM
 ---
 
 **IMPORTANT:** these instructions apply for a **development/test** setup.
-For a production platform, please refer to the [prerequisites](../install/prereqs.html) and [packages installation](../install/packages.html) pages.
+For a production platform, please refer to the [requirements](../install/reqs.html) and [packages installation](../install/packages.html) pages.
 
 - Table of contents
 {:toc}
