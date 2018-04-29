@@ -21,8 +21,13 @@ if [ -n "$PROXY_HOST" -a -n "$PROXY_PORT" ] && [ "$PROXY_PORT" -gt 0 ]; then
 	export ftp_proxy="http://$PROXY_HOST:$PROXY_PORT"
 fi
 
-# Install prerequisites
+# Disable SELinux
 echo
+echo "Disabling SELinux ..."
+sed -i 's#^SELINUX=.*$#SELINUX=disabled#g' /etc/selinux/config
+setenforce 0
+
+# Install prerequisites
 echo "Installing prerequisites ..."
 if ! installpackages rsync vim-enhanced; then
 	echo "Failed to install prerequisites, please ensure that the VM has internet access."
@@ -37,6 +42,7 @@ if ! installpackages "$REPO_PKG"; then
 	echo "You may run 'vagrant provision' to retry."
 	exit 1
 fi
+yum-config-manager --enable remi-php70 > /dev/null
 
 # Install overlay
 echo "Installing overlay ..."
