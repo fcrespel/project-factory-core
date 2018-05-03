@@ -102,8 +102,9 @@ if ! grep -q "$PF_DOMAIN" "/etc/hosts"; then
 fi
 
 # Configure motd
-echo "Configuring motd ..."
+echo "Configuring SSH ..."
 sed -i 's#PrintMotd no#PrintMotd yes#g' "/etc/ssh/sshd_config"
+sed -i 's#ChallengeResponseAuthentication no#ChallengeResponseAuthentication yes#g' "/etc/ssh/sshd_config"
 
 # Configure mod_ssl
 echo "Configuring mod_ssl ..."
