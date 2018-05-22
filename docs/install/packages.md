@@ -59,7 +59,7 @@ Use the **Project Factory** administration tool to install an admin package:
 
 Use the **Project Factory** administration tool to install a service package:
 
-    pf-admin package install service alfresco-explorer
+    pf-admin package install service alfresco-platform
     pf-admin package install service alfresco-share
     pf-admin package install service alfresco-solr
     pf-admin package install service api
@@ -75,6 +75,6 @@ Use the **Project Factory** administration tool to install a service package:
     pf-admin package install service redmine
     pf-admin package install service rundeck
     pf-admin package install service sonarqube
-    pf-admin package install service sonarqube-runner
+    pf-admin package install service sonarqube-scanner
     pf-admin package install service svn
     pf-admin package install service testlink
