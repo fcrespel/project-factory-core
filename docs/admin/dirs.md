@@ -8,7 +8,7 @@ The main directories can be modified with **product properties** (mentioned betw
 In **production**, it is recommended to have separate partitions (or logical volumes) for each of these directories.
 
     +---opt
-        \---project-factory            Platform root (product.root)
+        \---projectfactory             Platform root (product.root)
             +---app                    Application binaries, static configuration (product.app)
             |   \---admin
             |   \---services
