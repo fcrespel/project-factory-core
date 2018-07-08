@@ -31,6 +31,11 @@ pipeline {
       }
     }
     stage('Build Packages') {
+      agent {
+        dockerfile {
+          dir 'build/centos7'
+        }
+      }
       steps {
         sh 'mvn -U -fae -f packages/pom.xml clean install -P !deb'
       }
