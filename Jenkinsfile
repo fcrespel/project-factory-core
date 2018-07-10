@@ -34,10 +34,11 @@ pipeline {
       agent {
         dockerfile {
           dir 'build/centos7'
+          args '-v $HOME/.m2:/var/maven/.m2 -v $HOME/.m2/settings.xml:/var/maven/.m2/settings.xml -v $HOME/.m2/repository:/var/maven/.m2/repository'
         }
       }
       steps {
-        sh 'mvn -U -fae -f packages/pom.xml clean install -P !deb'
+        sh 'mvn -Duser.home=/var/maven -Dbuild.dir=/var/maven/build -U -fae -f packages/pom.xml clean install -P !deb'
       }
     }
   }
