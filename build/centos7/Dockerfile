@@ -16,11 +16,12 @@ RUN yum -y install git subversion java-1.8.0-openjdk-devel && yum -y clean all
 RUN yum -y install rpm-build rpm-sign gcc gcc-c++ make cmake php php-mbstring php-pdo php-pear php-xml python python-setuptools expect && yum -y clean all
 
 # Install Maven
-RUN mkdir -p /usr/share/maven &&\
+RUN mkdir -p /usr/share/maven /var/maven/build &&\
 	curl -fsSL -o /tmp/apache-maven.tar.gz ${MVN_URL} &&\
 	tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 &&\
 	rm -f /tmp/apache-maven.tar.gz &&\
-	ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+	ln -s /usr/share/maven/bin/mvn /usr/bin/mvn &&\
+	chmod -R 777 /var/maven
 
 # Install RVM
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 &&\
