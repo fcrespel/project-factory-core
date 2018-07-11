@@ -39,12 +39,37 @@ pipeline {
         }
       }
     }
+    stage('Build Docker images') {
+      parallel {
+        stage('CentOS 7') {
+          steps {
+            script {
+              def image = docker.build('projectfactory/build:centos7', 'build/centos7')
+            }
+          }
+        }
+        stage('Debian 9') {
+          steps {
+            script {
+              def image = docker.build('projectfactory/build:debian9', 'build/debian9')
+            }
+          }
+        }
+        stage('Ubuntu 16.04') {
+          steps {
+            script {
+              def image = docker.build('projectfactory/build:ubuntu1604', 'build/ubuntu1604')
+            }
+          }
+        }
+      }
+    }
     stage('Build Packages') {
       parallel {
         stage('CentOS 7') {
           agent {
-            dockerfile {
-              dir 'build/centos7'
+            docker {
+              image 'projectfactory/build:centos7'
               args '-v $HOME/.m2:/var/maven/.m2 -v $HOME/.m2/settings.xml:/var/maven/.m2/settings.xml -v $HOME/.m2/repository:/var/maven/.m2/repository'
             }
           }
@@ -58,8 +83,8 @@ pipeline {
         }
         stage('Debian 9') {
           agent {
-            dockerfile {
-              dir 'build/debian9'
+            docker {
+              image 'projectfactory/build:debian9'
               args '-v $HOME/.m2:/var/maven/.m2 -v $HOME/.m2/settings.xml:/var/maven/.m2/settings.xml -v $HOME/.m2/repository:/var/maven/.m2/repository'
             }
           }
@@ -73,8 +98,8 @@ pipeline {
         }
         stage('Ubuntu 16.04') {
           agent {
-            dockerfile {
-              dir 'build/ubuntu1604'
+            docker {
+              image 'projectfactory/build:ubuntu1604'
               args '-v $HOME/.m2:/var/maven/.m2 -v $HOME/.m2/settings.xml:/var/maven/.m2/settings.xml -v $HOME/.m2/repository:/var/maven/.m2/repository'
             }
           }
