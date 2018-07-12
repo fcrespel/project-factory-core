@@ -42,6 +42,9 @@ pipeline {
     stage('Build Docker images') {
       parallel {
         stage('CentOS 7') {
+          when {
+            expression { params.build_centos7 == true }
+          }
           steps {
             script {
               def image = docker.build('projectfactory/build:centos7', 'build/centos7')
@@ -49,6 +52,9 @@ pipeline {
           }
         }
         stage('Debian 9') {
+          when {
+            expression { params.build_debian9 == true }
+          }
           steps {
             script {
               def image = docker.build('projectfactory/build:debian9', 'build/debian9')
@@ -56,6 +62,9 @@ pipeline {
           }
         }
         stage('Ubuntu 16.04') {
+          when {
+            expression { params.build_ubuntu1604 == true }
+          }
           steps {
             script {
               def image = docker.build('projectfactory/build:ubuntu1604', 'build/ubuntu1604')
