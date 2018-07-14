@@ -11,7 +11,7 @@ ARG RUBY_VERSION=2.3.7
 # Install packages
 RUN zypper in -y which curl && zypper clean -a
 RUN zypper in -y git subversion java-1_8_0-openjdk-devel && zypper clean -a
-RUN zypper in -y rpm-build gcc gcc-c++ make cmake php7 php7-mbstring php7-pdo php7-pear php7-xmlreader php7-xmlwriter php7-xsl python python-setuptools expect && zypper clean -a
+RUN zypper in -y rpm-build gcc gcc-c++ make cmake php7 php7-curl php7-fileinfo php7-iconv php7-json php7-mbstring php7-openssl php7-pdo php7-pear php7-phar php7-tokenizer php7-xmlreader php7-xmlwriter php7-xsl php7-zlib python python-setuptools expect && zypper clean -a
 
 # Install Maven
 RUN mkdir -p /usr/share/maven /var/maven/build &&\
