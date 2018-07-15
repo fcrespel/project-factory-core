@@ -46,4 +46,4 @@ RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A170311380
 	/usr/local/rvm/bin/rvm cleanup all &&\
 	apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 
-CMD ["/bin/bash"]
+CMD ["/bin/bash", "-l"]
