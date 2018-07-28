@@ -31,4 +31,4 @@ RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A170311380
 	/usr/local/rvm/bin/rvm cleanup all &&\
 	zypper clean -a
 
-CMD ["/bin/bash"]
+CMD ["/bin/bash", "-l"]
