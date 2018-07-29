@@ -24,6 +24,23 @@ function printinfo
 	echo -e "${COLOR_BLUE}$1${COLOR_RESET}"
 }
 
+function listvars
+{
+	local CONFIG_FILES=""
+	if [ -n "$CORE_APP_DIR" -a -e "$CORE_APP_DIR/config.sh" ]; then
+		CONFIG_FILES="$CONFIG_FILES $CORE_APP_DIR/config.sh"
+	fi
+	if [ -n "$CORE_DATA_DIR" -a -e "$CORE_DATA_DIR/config.sh" ]; then
+		CONFIG_FILES="$CONFIG_FILES $CORE_DATA_DIR/config.sh"
+	fi
+	if [ -n "$CORE_DATA_DIR" -a -e "$CORE_DATA_DIR/passwd.sh" ]; then
+		CONFIG_FILES="$CONFIG_FILES $CORE_DATA_DIR/passwd.sh"
+	fi
+	if [ -n "$CONFIG_FILES" ]; then
+		cat $CONFIG_FILES | grep -E '^[A-Z_]+=' | cut -d'=' -f1 | sort | uniq
+	fi
+}
+
 # Store a variable in a configuration file (or choose it automatically if undefined)
 function storevar
 {
@@ -314,17 +331,16 @@ function run_cron_scripts()
 				grep -q "^$(basename $FILE)$" "$DIR/jobs.allow" || continue
 			fi
 			
-			if [ ! -e "$FILE.lock" ]; then
-				if touch "$FILE.lock"; then
-					$FILE 2>&1 | awk -v "progname=$FILE" \
-										'progname {
-											print progname ":\n"
-											progname="";
-										}
-										{ print; }'
-					rm -f "$FILE.lock"
-				fi
-			fi
+			# Run script with a lock
+			(
+				flock -n 9 && \
+				$FILE 2>&1 | awk -v "progname=$FILE" \
+									'progname {
+										print progname ":\n"
+										progname="";
+									}
+									{ print; }'
+			) 9>"$FILE.lock" && rm -f "$FILE.lock"
 		done
 	fi
 }

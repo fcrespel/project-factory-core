@@ -14,14 +14,18 @@ CONFIG_KEY="$2"
 CONFIG_VALUE="$3"
 
 # Check arguments
-if [ -z "$ACTION" -o -z "$CONFIG_KEY" ]; then
-	echo "Usage: $0 get <key>"
+if [ -z "$ACTION" ]; then
+	echo "Usage: $0 list"
+	echo "       $0 get <key>"
 	echo "       $0 <set|add|remove> <key> <value>"
 	exit 1
 fi
 
 # Perform action
 case "$ACTION" in
+	"list")
+		listvars
+		;;
 	"get")
 		echo "${!CONFIG_KEY}"
 		;;
