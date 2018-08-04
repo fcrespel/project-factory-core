@@ -43,6 +43,7 @@ pipeline {
     stage('Build Docker images') {
       parallel {
         stage('CentOS 7') {
+          agent { label 'docker' }
           when {
             expression { params.build_centos7 == true }
           }
@@ -53,6 +54,7 @@ pipeline {
           }
         }
         stage('Debian 9') {
+          agent { label 'docker' }
           when {
             expression { params.build_debian9 == true }
           }
@@ -63,6 +65,7 @@ pipeline {
           }
         }
         stage('openSUSE 42.3') {
+          agent { label 'docker' }
           when {
             expression { params.build_opensuse423 == true }
           }
@@ -73,6 +76,7 @@ pipeline {
           }
         }
         stage('Ubuntu 16.04') {
+          agent { label 'docker' }
           when {
             expression { params.build_ubuntu1604 == true }
           }
