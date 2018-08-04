@@ -121,19 +121,19 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-archetype-plugin</artifactId>
-					<version>2.2</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-assembly-plugin</artifactId>
 					<version>2.4</version>
 				</plugin>
 				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.3</version>
+					<version>3.8.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.8</version>
+					<version>2.10</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-remote-resources-plugin</artifactId>
@@ -141,39 +141,39 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.6</version>
+					<version>2.7</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-scm-plugin</artifactId>
-					<version>1.8.1</version>
+					<version>1.10.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>3.3</version>
+					<version>3.7.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>2.4</version>
+					<version>2.6</version>
 				</plugin>
 				<plugin>
-					<groupId>com.googlecode.velocity-maven-plugin</groupId>
+					<groupId>com.github.vdubus</groupId>
 					<artifactId>velocity-maven-plugin</artifactId>
-					<version>1.1.0-PF</version>
+					<version>1.1.3</version>
 				</plugin>
 				<plugin>
 					<groupId>net.alchim31.maven</groupId>
 					<artifactId>yuicompressor-maven-plugin</artifactId>
-					<version>1.3.2</version>
+					<version>1.5.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.8</version>
+					<version>3.0.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>license-maven-plugin</artifactId>
-					<version>1.8</version>
+					<version>1.16</version>
 					<configuration>
 						<processStartTag>&#35;[</processStartTag>
 						<sectionDelimiter>&#35;&#35;</sectionDelimiter>
@@ -189,12 +189,12 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>rpm-maven-plugin</artifactId>
-					<version>2.1.3</version>
+					<version>2.2.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>wagon-maven-plugin</artifactId>
-					<version>1.0</version>
+					<version>2.0.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.kuali.maven.plugins</groupId>
@@ -204,7 +204,7 @@
 				<plugin>
 					<groupId>org.vafer</groupId>
 					<artifactId>jdeb</artifactId>
-					<version>1.3</version>
+					<version>1.6</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

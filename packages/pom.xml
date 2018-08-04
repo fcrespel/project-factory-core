@@ -164,101 +164,74 @@
 					<artifactId>build-helper-maven-plugin</artifactId>
 					<executions>
 						<execution>
-							<id>initialize-package-version</id>
+							<id>initialize-regex-properties</id>
 							<phase>initialize</phase>
 							<goals>
-								<goal>regex-property</goal>
+								<goal>regex-properties</goal>
 							</goals>
 							<configuration>
-								<name>package.version</name>
-								<value>${project.version}</value>
-								<regex>^([^-]*)-((?!SNAPSHOT).*?)(?:)?$</regex>
-								<replacement>$$1</replacement>
-								<failIfNoMatch>true</failIfNoMatch>
+								<regexPropertySettings>
+									<regexPropertySetting>
+										<name>package.version</name>
+										<value>${project.version}</value>
+										<regex>^([^-]*)-((?!SNAPSHOT).*?)(?:-SNAPSHOT)?$</regex>
+										<replacement>$$1</replacement>
+										<failIfNoMatch>true</failIfNoMatch>
+									</regexPropertySetting>
+									<regexPropertySetting>
+										<name>package.release</name>
+										<value>${project.version}</value>
+										<regex>^([^-]*)-((?!SNAPSHOT).*?)(?:-SNAPSHOT)?$</regex>
+										<replacement>$$2</replacement>
+										<failIfNoMatch>true</failIfNoMatch>
+									</regexPropertySetting>
+									<regexPropertySetting>
+										<name>package.rpm.dependencies.all.fixed</name>
+										<value>${package.rpm.dependencies.all}</value>
+										<regex>(?:^\s*,)|(?:[\r\n\t])|(?:,\s*$)</regex>
+										<replacement></replacement>
+										<failIfNoMatch>false</failIfNoMatch>
+									</regexPropertySetting>
+									<regexPropertySetting>
+										<name>package.rpm.arch</name>
+										<value>${package.arch}</value>
+										<regex>^(noarch|all)$</regex>
+										<replacement>noarch</replacement>
+										<failIfNoMatch>false</failIfNoMatch>
+									</regexPropertySetting>
+									<regexPropertySetting>
+										<name>package.deb.dependencies.all.fixed</name>
+										<value>${package.deb.dependencies.all}</value>
+										<regex>(?:^\s*,)|(?:[\r\n\t])|(?:,\s*$)</regex>
+										<replacement></replacement>
+										<failIfNoMatch>false</failIfNoMatch>
+									</regexPropertySetting>
+									<regexPropertySetting>
+										<name>package.deb.arch</name>
+										<value>${package.arch}</value>
+										<regex>^(noarch|all)$</regex>
+										<replacement>all</replacement>
+										<failIfNoMatch>false</failIfNoMatch>
+									</regexPropertySetting>
+								</regexPropertySettings>
 							</configuration>
 						</execution>
 						<execution>
-							<id>initialize-package-release</id>
+							<id>initialize-regex-properties-fix</id>
 							<phase>initialize</phase>
 							<goals>
-								<goal>regex-property</goal>
+								<goal>regex-properties</goal>
 							</goals>
 							<configuration>
-								<name>package.release</name>
-								<value>${project.version}</value>
-								<regex>^([^-]*)-((?!SNAPSHOT).*?)(?:)?$</regex>
-								<replacement>$$2</replacement>
-								<failIfNoMatch>true</failIfNoMatch>
-							</configuration>
-						</execution>
-						<execution>
-							<id>initialize-rpm-dependencies</id>
-							<phase>initialize</phase>
-							<goals>
-								<goal>regex-property</goal>
-							</goals>
-							<configuration>
-								<name>package.rpm.dependencies.all.fixed</name>
-								<value>${package.rpm.dependencies.all}</value>
-								<regex>(?:^\s*,)|(?:[\r\n\t])|(?:,\s*$)</regex>
-								<replacement></replacement>
-								<failIfNoMatch>false</failIfNoMatch>
-							</configuration>
-						</execution>
-						<execution>
-							<id>initialize-rpm-arch</id>
-							<phase>initialize</phase>
-							<goals>
-								<goal>regex-property</goal>
-							</goals>
-							<configuration>
-								<name>package.rpm.arch</name>
-								<value>${package.arch}</value>
-								<regex>^(noarch|all)$</regex>
-								<replacement>noarch</replacement>
-								<failIfNoMatch>false</failIfNoMatch>
-							</configuration>
-						</execution>
-						<execution>
-							<id>initialize-deb-dependencies-tmp</id>
-							<phase>initialize</phase>
-							<goals>
-								<goal>regex-property</goal>
-							</goals>
-							<configuration>
-								<name>package.deb.dependencies.all.fixed.tmp</name>
-								<value>${package.deb.dependencies.all}</value>
-								<regex>(?:^\s*,)|(?:[\r\n\t])|(?:,\s*$)</regex>
-								<replacement></replacement>
-								<failIfNoMatch>false</failIfNoMatch>
-							</configuration>
-						</execution>
-						<execution>
-							<id>initialize-deb-dependencies</id>
-							<phase>initialize</phase>
-							<goals>
-								<goal>regex-property</goal>
-							</goals>
-							<configuration>
-								<name>package.deb.dependencies.all.fixed</name>
-								<value>${package.deb.dependencies.all.fixed.tmp}</value>
-								<regex>( +)((?:&gt;=|=|&lt;=)[ 0-9.-]+)</regex>
-								<replacement>$$1($$2)</replacement>
-								<failIfNoMatch>false</failIfNoMatch>
-							</configuration>
-						</execution>
-						<execution>
-							<id>initialize-deb-arch</id>
-							<phase>initialize</phase>
-							<goals>
-								<goal>regex-property</goal>
-							</goals>
-							<configuration>
-								<name>package.deb.arch</name>
-								<value>${package.arch}</value>
-								<regex>^(noarch|all)$</regex>
-								<replacement>all</replacement>
-								<failIfNoMatch>false</failIfNoMatch>
+								<regexPropertySettings>
+									<regexPropertySetting>
+										<name>package.deb.dependencies.all.fixed</name>
+										<value>${package.deb.dependencies.all.fixed}</value>
+										<regex>( +)((?:&gt;=|=|&lt;=)[ 0-9.-]+)</regex>
+										<replacement>$$1($$2)</replacement>
+										<failIfNoMatch>false</failIfNoMatch>
+									</regexPropertySetting>
+								</regexPropertySettings>
 							</configuration>
 						</execution>
 					</executions>
@@ -806,7 +779,7 @@
 						</executions>
 					</plugin>
 					<plugin>
-						<groupId>com.googlecode.velocity-maven-plugin</groupId>
+						<groupId>com.github.vdubus</groupId>
 						<artifactId>velocity-maven-plugin</artifactId>
 						<executions>
 							<execution>
@@ -959,7 +932,7 @@
 						</executions>
 					</plugin>
 					<plugin>
-						<groupId>com.googlecode.velocity-maven-plugin</groupId>
+						<groupId>com.github.vdubus</groupId>
 						<artifactId>velocity-maven-plugin</artifactId>
 						<executions>
 							<execution>
@@ -994,7 +967,7 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>com.googlecode.velocity-maven-plugin</groupId>
+						<groupId>com.github.vdubus</groupId>
 						<artifactId>velocity-maven-plugin</artifactId>
 						<executions>
 							<execution>
