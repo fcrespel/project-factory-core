@@ -61,6 +61,7 @@
 							<goal>compress</goal>
 						</goals>
 						<configuration>
+							<force>true</force>
 							<nosuffix>true</nosuffix>
 							<outputDirectory>${symbol_dollar}{project.app.directory}</outputDirectory>
 							<includes>
