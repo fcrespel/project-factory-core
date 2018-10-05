@@ -801,6 +801,26 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>native2ascii-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prepare-package-product-native2ascii</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>inplace</goal>
+								</goals>
+								<configuration>
+									<dir>${project.product.directory}</dir>
+									<encoding>ISO-8859-1</encoding>
+									<includes>
+										<include>**/*.properties</include>
+									</includes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -950,6 +970,26 @@
 											<include>**/*.vm</include>
 										</includes>
 									</templateFiles>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>native2ascii-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prepare-package-system-native2ascii</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>inplace</goal>
+								</goals>
+								<configuration>
+									<dir>${project.system.directory}</dir>
+									<encoding>ISO-8859-1</encoding>
+									<includes>
+										<include>**/*.properties</include>
+									</includes>
 								</configuration>
 							</execution>
 						</executions>
