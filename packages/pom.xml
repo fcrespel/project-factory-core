@@ -44,6 +44,7 @@
 		<project.system.directory>${project.build.directory}/system</project.system.directory>
 		<project.generated.directory>src/generated</project.generated.directory>
 		<project.generated.product.directory>${project.generated.directory}/product</project.generated.product.directory>
+		<project.generated.properties.directory>${project.generated.directory}/properties</project.generated.properties.directory>
 		<project.generated.scripts.directory>${project.generated.directory}/scripts</project.generated.scripts.directory>
 		<project.scripts.directory>${project.build.directory}/scripts</project.scripts.directory>
 		<project.scripts.rpm.directory>${project.scripts.directory}/rpm</project.scripts.rpm.directory>
@@ -750,7 +751,7 @@
 									<goal>copy-resources</goal>
 								</goals>
 								<configuration>
-									<outputDirectory>${project.product.directory}</outputDirectory>
+									<outputDirectory>${project.generated.properties.directory}</outputDirectory>
 									<encoding>ISO-8859-1</encoding>
 									<overwrite>true</overwrite>
 									<includeEmptyDirs>true</includeEmptyDirs>
@@ -789,7 +790,7 @@
 									<goal>velocity</goal>
 								</goals>
 								<configuration>
-									<outputDirectory>${project.product.directory}</outputDirectory>
+									<outputDirectory>${project.generated.properties.directory}</outputDirectory>
 									<removeExtension>.vm</removeExtension>
 									<templateFiles>
 										<directory>src/main/product</directory>
@@ -809,10 +810,11 @@
 								<id>prepare-package-product-native2ascii</id>
 								<phase>prepare-package</phase>
 								<goals>
-									<goal>inplace</goal>
+									<goal>resources</goal>
 								</goals>
 								<configuration>
-									<dir>${project.product.directory}</dir>
+									<srcDir>${project.generated.properties.directory}</srcDir>
+									<targetDir>${project.product.directory}</targetDir>
 									<encoding>ISO-8859-1</encoding>
 									<includes>
 										<include>**/*.properties</include>
@@ -970,26 +972,6 @@
 											<include>**/*.vm</include>
 										</includes>
 									</templateFiles>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>native2ascii-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>prepare-package-system-native2ascii</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>inplace</goal>
-								</goals>
-								<configuration>
-									<dir>${project.system.directory}</dir>
-									<encoding>ISO-8859-1</encoding>
-									<includes>
-										<include>**/*.properties</include>
-									</includes>
 								</configuration>
 							</execution>
 						</executions>
