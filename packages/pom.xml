@@ -790,7 +790,7 @@
 									<goal>velocity</goal>
 								</goals>
 								<configuration>
-									<outputDirectory>${project.generated.properties.directory}</outputDirectory>
+									<outputDirectory>${project.product.directory}</outputDirectory>
 									<removeExtension>.vm</removeExtension>
 									<templateFiles>
 										<directory>src/main/product</directory>
