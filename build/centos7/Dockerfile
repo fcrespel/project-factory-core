@@ -5,12 +5,13 @@ MAINTAINER Fabien Crespel <fabien@crespel.net>
 # Arguments
 ARG MVN_VERSION=3.5.3
 ARG MVN_URL=https://archive.apache.org/dist/maven/maven-3/${MVN_VERSION}/binaries/apache-maven-${MVN_VERSION}-bin.tar.gz
-ARG RUBY_VERSION=2.3.7
+ARG RUBY_VERSION=2.4.5
 
 # Configure repositories
-RUN yum -y install yum-utils https://rpms.remirepo.net/enterprise/remi-release-7.rpm && yum-config-manager --enable remi-php70
+RUN yum -y install yum-utils https://rpms.remirepo.net/enterprise/remi-release-7.rpm && yum-config-manager --enable remi-php70 && yum -y clean all
 
 # Install packages
+RUN yum -y update && yum -y clean all
 RUN yum -y install which initscripts && yum -y clean all
 RUN yum -y install git subversion java-1.8.0-openjdk-devel && yum -y clean all
 RUN yum -y install rpm-build rpm-sign gcc gcc-c++ make cmake php php-mbstring php-pdo php-pear php-xml python python-setuptools expect && yum -y clean all

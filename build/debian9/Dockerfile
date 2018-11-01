@@ -5,7 +5,7 @@ MAINTAINER Fabien Crespel <fabien@crespel.net>
 # Arguments
 ARG MVN_VERSION=3.5.3
 ARG MVN_URL=https://archive.apache.org/dist/maven/maven-3/${MVN_VERSION}/binaries/apache-maven-${MVN_VERSION}-bin.tar.gz
-ARG RUBY_VERSION=2.3.7
+ARG RUBY_VERSION=2.4.5
 
 # Install initial packages
 RUN apt-get -q update &&\
