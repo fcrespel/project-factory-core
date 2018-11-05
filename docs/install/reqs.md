@@ -75,10 +75,10 @@ Before installing **Project Factory** packages, additional **repositories** must
 
             yum install https://repo.mysql.com/mysql57-community-release-el7.rpm
 
--   [**NodeJS**](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora):
+-   [**NodeJS**](https://github.com/nodesource/distributions/blob/master/README.md#rpm):
     -   Execute this command:
 
-            curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
+            curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
 
 -   [**Yarn**](https://yarnpkg.com/en/docs/install#linux-tab):
     -   Execute this command:
@@ -109,10 +109,10 @@ Before installing **Project Factory** packages, additional **repositories** must
 
     -   Choose the MySQL 5.7 repository in the configuration wizard
 
--   [**NodeJS**](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions):
+-   [**NodeJS**](https://github.com/nodesource/distributions/blob/master/README.md#deb):
     -   Execute this command:
 
-            curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+            curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 
 -   [**Yarn**](https://yarnpkg.com/en/docs/install#linux-tab):
     -   Execute these commands:
@@ -136,10 +136,10 @@ Before installing **Project Factory** packages, additional **repositories** must
 
             add-apt-repository -y ppa:openjdk-r/ppa
 
--   [**NodeJS**](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions):
+-   [**NodeJS**](https://github.com/nodesource/distributions/blob/master/README.md#deb):
     -   Execute this command:
 
-            curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+            curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 
 -   [**Yarn**](https://yarnpkg.com/en/docs/install#linux-tab):
     -   Execute these commands:
