@@ -718,6 +718,7 @@
 										<nonFilteredFileExtension>pdf</nonFilteredFileExtension>
 										<nonFilteredFileExtension>swf</nonFilteredFileExtension>
 										<nonFilteredFileExtension>jar</nonFilteredFileExtension>
+										<nonFilteredFileExtension>zip</nonFilteredFileExtension>
 										<nonFilteredFileExtension>hpi</nonFilteredFileExtension>
 										<nonFilteredFileExtension>jpi</nonFilteredFileExtension>
 										<nonFilteredFileExtension>class</nonFilteredFileExtension>
@@ -907,6 +908,7 @@
 										<nonFilteredFileExtension>pdf</nonFilteredFileExtension>
 										<nonFilteredFileExtension>swf</nonFilteredFileExtension>
 										<nonFilteredFileExtension>jar</nonFilteredFileExtension>
+										<nonFilteredFileExtension>zip</nonFilteredFileExtension>
 										<nonFilteredFileExtension>hpi</nonFilteredFileExtension>
 										<nonFilteredFileExtension>jpi</nonFilteredFileExtension>
 										<nonFilteredFileExtension>class</nonFilteredFileExtension>
