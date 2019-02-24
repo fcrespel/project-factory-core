@@ -300,7 +300,7 @@ function interpolatetemplate_inplace
 }
 
 # Run all cron scripts in a directory
-function run_cron_scripts()
+function run_cron_scripts
 {
 	local DIR="$1"
 	if [ -n "$DIR" -a -d "$DIR" ]; then
@@ -332,16 +332,34 @@ function run_cron_scripts()
 			fi
 			
 			# Run script with a lock
-			(
-				flock -n 9 && \
-				$FILE 2>&1 | awk -v "progname=$FILE" \
-									'progname {
-										print progname ":\n"
-										progname="";
-									}
-									{ print; }'
-			) 9>"$FILE.lock" && rm -f "$FILE.lock"
+			if [ ! -e "$FILE.disabled" ]; then
+				(
+					flock -n 9 && \
+					$FILE 2>&1 | awk -v "progname=$FILE" \
+										'progname {
+											print progname ":\n"
+											progname="";
+										}
+										{ print; }'
+				) 9>"$FILE.lock" && rm -f "$FILE.lock"
+			fi
 		done
+	fi
+}
+
+function cron_disable_job
+{
+	local SCRIPT="$1"
+	if [ -e "$SCRIPT" ]; then
+		touch "$SCRIPT.disabled"
+	fi
+}
+
+function cron_enable_job
+{
+	local SCRIPT="$1"
+	if [ -e "$SCRIPT.disabled" ]; then
+		rm -f "$SCRIPT.disabled"
 	fi
 }
 
