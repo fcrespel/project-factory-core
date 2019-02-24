@@ -30,7 +30,7 @@
 	</parent>
 
 	<artifactId>core</artifactId>
-	<version>3.4.0-2</version>
+	<version>3.4.0-3</version>
 	<packaging>pom</packaging>
 
 	<name>Project Factory Core Packages - Core</name>
