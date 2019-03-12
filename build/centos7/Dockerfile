@@ -6,6 +6,7 @@ MAINTAINER Fabien Crespel <fabien@crespel.net>
 ARG MVN_VERSION=3.5.3
 ARG MVN_URL=https://archive.apache.org/dist/maven/maven-3/${MVN_VERSION}/binaries/apache-maven-${MVN_VERSION}-bin.tar.gz
 ARG RUBY_VERSION=2.4.5
+ARG BUNDLER_VERSION=1.17.3
 
 # Configure repositories
 RUN yum -y install yum-utils https://rpms.remirepo.net/enterprise/remi-release-7.rpm && yum-config-manager --enable remi-php70 && yum -y clean all
@@ -30,7 +31,7 @@ RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A170311380
 	/usr/local/rvm/bin/rvm requirements &&\
 	/usr/local/rvm/bin/rvm install ${RUBY_VERSION} --rubygems ignore &&\
 	/usr/local/rvm/bin/rvm alias create default ${RUBY_VERSION} &&\
-	/usr/local/rvm/bin/rvm default do gem install bundler --no-ri --no-rdoc &&\
+	/usr/local/rvm/bin/rvm default do gem install bundler:${BUNDLER_VERSION} --no-ri --no-rdoc &&\
 	/usr/local/rvm/bin/rvm cleanup all &&\
 	yum -y clean all
 
