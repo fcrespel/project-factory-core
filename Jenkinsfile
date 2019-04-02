@@ -3,7 +3,7 @@ pipeline {
   parameters {
     string(name: 'product_groupId', defaultValue: 'fr.project-factory.core.products', description: 'Product groupId')
     string(name: 'product_artifactId', defaultValue: 'default', description: 'Product artifactId')
-    string(name: 'product_version', defaultValue: '3.4.0-SNAPSHOT', description: 'Product version')
+    string(name: 'product_version', defaultValue: '3.4.0', description: 'Product version')
     string(name: 'product_file', defaultValue: 'product-dev.properties', description: 'Product file')
     string(name: 'mvn_opts', defaultValue: '-U', description: 'Maven build options')
     string(name: 'mvn_goals', defaultValue: 'clean install', description: 'Maven build goals')
