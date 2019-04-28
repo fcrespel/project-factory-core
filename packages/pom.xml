@@ -435,6 +435,7 @@
 								<defineStatements>
 									<defineStatement>_binaries_in_noarch_packages_terminate_build 0</defineStatement>
 									<defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+									<defineStatement>__os_install_post %{nil}</defineStatement>
 								</defineStatements>
 								<requires>
 									<require>${package.rpm.dependencies.all.fixed}</require>
