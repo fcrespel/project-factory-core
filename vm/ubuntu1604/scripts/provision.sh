@@ -51,11 +51,11 @@ if ! add-apt-repository -y ppa:openjdk-r/ppa > /dev/null 2>&1; then
 	exit 1
 fi
 
-# Install iT-Toolbox OSS repository
-echo "Installing iT-Toolbox OSS repository ..."
-echo -n > "/etc/apt/sources.list.d/ittb-oss.list"
-[ "$ITTB_OSS_REPO_RELEASES_ENABLED" -eq 1 ] && echo "$ITTB_OSS_REPO_RELEASES_LIST" >> "/etc/apt/sources.list.d/ittb-oss.list"
-[ "$ITTB_OSS_REPO_SNAPSHOTS_ENABLED" -eq 1 ] && echo "$ITTB_OSS_REPO_SNAPSHOTS_LIST" >> "/etc/apt/sources.list.d/ittb-oss.list"
+# Install Project Factory repository
+echo "Installing Project Factory repository ..."
+echo -n > "/etc/apt/sources.list.d/project-factory.list"
+[ "$PF_REPO_RELEASES_ENABLED" -eq 1 ] && echo "$PF_REPO_RELEASES_LIST" >> "/etc/apt/sources.list.d/project-factory.list"
+[ "$PF_REPO_SNAPSHOTS_ENABLED" -eq 1 ] && echo "$PF_REPO_SNAPSHOTS_LIST" >> "/etc/apt/sources.list.d/project-factory.list"
 
 # Install overlay
 echo "Installing overlay ..."

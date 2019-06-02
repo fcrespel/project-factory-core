@@ -85,16 +85,16 @@ Before installing **Project Factory** packages, additional **repositories** must
 
             sudo wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
 
--   **iT-Toolbox OSS Releases**:
-    -   Create the `ittb-oss.repo` file in `/etc/yum.repos.d`:
+-   **Project Factory Releases**:
+    -   Create the `project-factory.repo` file in `/etc/yum.repos.d`:
 
-            [ittb-oss-releases]
-            name=iT-Toolbox OSS Releases
-            baseurl=https://cgi.it-toolbox.fr/repos/yum/oss-releases/el7/
+            [project-factory-releases]
+            name=Project Factory Releases
+            baseurl=https://forge.crespel.me/repos/yum/project-factory-releases/el7/
             enabled=1
             protect=0
             gpgcheck=1
-            gpgkey=https://cgi.it-toolbox.fr/repos/GPG-KEY-iT-Toolbox
+            gpgkey=https://forge.crespel.me/repos/GPG-KEY-Project-Factory
             sslverify=0
             autorefresh=1
             type=rpm-md
@@ -120,14 +120,14 @@ Before installing **Project Factory** packages, additional **repositories** must
             curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
--   **iT-Toolbox OSS Releases**:
+-   **Project Factory Releases**:
     -   Execute this command:
 
-            wget -qO - https://cgi.it-toolbox.fr/repos/GPG-KEY-iT-Toolbox | sudo apt-key add -
+            wget -qO - https://forge.crespel.me/repos/GPG-KEY-Project-Factory | sudo apt-key add -
 
-    -   Create the `ittb-oss.list` file in `/etc/apt/sources.list.d`:
+    -   Create the `project-factory.list` file in `/etc/apt/sources.list.d`:
 
-            deb https://cgi.it-toolbox.fr/repos/apt/oss-releases/ debian9 main
+            deb https://forge.crespel.me/repos/apt/project-factory-releases/ debian9 main
 
 ### Ubuntu 16.04
 
@@ -147,14 +147,14 @@ Before installing **Project Factory** packages, additional **repositories** must
             curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
--   **iT-Toolbox OSS Releases**:
+-   **Project Factory Releases**:
     -   Execute this command:
 
-            wget -qO - https://cgi.it-toolbox.fr/repos/GPG-KEY-iT-Toolbox | sudo apt-key add -
+            wget -qO - https://forge.crespel.me/repos/GPG-KEY-Project-Factory | sudo apt-key add -
 
-    -   Create the `ittb-oss.list` file in `/etc/apt/sources.list.d`:
+    -   Create the `project-factory.list` file in `/etc/apt/sources.list.d`:
 
-            deb https://cgi.it-toolbox.fr/repos/apt/oss-releases/ ubuntu1604 main
+            deb https://forge.crespel.me/repos/apt/project-factory-releases/ ubuntu1604 main
 
 ## Firewall
 

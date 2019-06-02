@@ -18,12 +18,12 @@ A new **Project Factory** platform configuration (also called “product”) can
 
 To do so, execute one of the following commands in the directory under which the new product should be created:
 
-    mvn archetype:generate -DarchetypeGroupId=fr.project-factory.core.archetypes -DarchetypeArtifactId=product -DarchetypeVersion=3.4.0-SNAPSHOT -DarchetypeRepository=https://cgi.it-toolbox.fr/nexus/content/groups/it-toolbox-oss/
+    mvn archetype:generate -DarchetypeGroupId=fr.project-factory.core.archetypes -DarchetypeArtifactId=product -DarchetypeVersion=3.4.0-SNAPSHOT -DarchetypeRepository=https://forge.crespel.me/nexus/content/groups/project-factory/
 
 The interactive mode of the archetype plugin will prompt you to enter the following details:
 
 -   **groupId:** as you wish (e.g. `fr.project-factory.core.products` for official products).
--   **artifactId:** name of the product, in lowercase (e.g. `it-toolbox`).
+-   **artifactId:** name of the product, in lowercase (e.g. `forge`).
 -   **version:** version of the product (e.g. `1.0.0-SNAPSHOT`).
 -   **package:** ignored, leave the suggested value.
 
