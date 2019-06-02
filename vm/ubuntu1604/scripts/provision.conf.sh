@@ -4,11 +4,11 @@
 # By Fabien CRESPEL <fabien@crespel.net>
 #
 
-# iT-Toolbox OSS repo config
-ITTB_OSS_REPO_RELEASES_ENABLED="0"
-ITTB_OSS_REPO_RELEASES_LIST="deb https://cgi.it-toolbox.fr/repos/apt/oss-releases/ ubuntu1604 main"
-ITTB_OSS_REPO_SNAPSHOTS_ENABLED="1"
-ITTB_OSS_REPO_SNAPSHOTS_LIST="deb https://cgi.it-toolbox.fr/repos/apt/oss-snapshots/ ubuntu1604 main"
+# Project Factory repo
+PF_REPO_RELEASES_ENABLED="0"
+PF_REPO_RELEASES_LIST="deb https://forge.crespel.me/repos/apt/project-factory-releases/ ubuntu1604 main"
+PF_REPO_SNAPSHOTS_ENABLED="1"
+PF_REPO_SNAPSHOTS_LIST="deb https://forge.crespel.me/repos/apt/project-factory-snapshots/ ubuntu1604 main"
 
 # Project Factory config
 PF_PKG_PREFIX="dev-projectfactory"

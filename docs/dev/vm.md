@@ -81,7 +81,7 @@ The VM is preconfigured to ease development:
 
 -   The **source directories** from the host are available in `/opt/projectfactory/src` (parent directory of `project-factory-core`).
 -   **Maven** is installed and configured.
--   The **iT-Toolbox OSS Snapshots repository** is configured.
+-   The **Project Factory repository** is configured.
 -   A **local repository** is refreshed every 5 minutes and contains all RPM/DEB packages locally installed by Maven.
 
 **IMPORTANT:** package building must be done with system user `pf`, and installation with system user `root`.
@@ -98,7 +98,7 @@ For example, to build and install the SVN 3.4.0-1-SNAPSHOT package:
     sudo su -
     yum install /opt/projectfactory/dev/data/system/maven/repository/fr/project-factory/packages/services/svn/3.4.0-1-SNAPSHOT/svn-3.4.0-1-SNAPSHOT-dev-projectfactory-el7-x86_64.rpm
 
-**NOTICE:** as 2 active repositories may contain the same packages (local and iT-Toolbox OSS), only the most recent dependencies will be installed.
+**NOTICE:** as 2 active repositories may contain the same packages (local and remote), only the most recent dependencies will be installed.
 
 **IMPORTANT**: make sure to use `-` in the `sudo` user switch command (as shown above) so that environment variables are properly set.
 Failure to do so will cause certain commands like `mvn` not to work when using system user `pf`.

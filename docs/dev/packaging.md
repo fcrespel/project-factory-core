@@ -20,11 +20,11 @@ To do so, execute one of the following commands in the directory under which the
 
 -   for a **generic system, admin or service** package:
 
-        mvn archetype:generate -DarchetypeGroupId=fr.project-factory.core.archetypes -DarchetypeArtifactId=package -DarchetypeVersion=3.4.0-SNAPSHOT -DarchetypeRepository=https://cgi.it-toolbox.fr/nexus/content/groups/it-toolbox-oss/
+        mvn archetype:generate -DarchetypeGroupId=fr.project-factory.core.archetypes -DarchetypeArtifactId=package -DarchetypeVersion=3.4.0-SNAPSHOT -DarchetypeRepository=https://forge.crespel.me/nexus/content/groups/project-factory/
 
 -   for a **webapp service** package (with embedded Tomcat):
 
-        mvn archetype:generate -DarchetypeGroupId=fr.project-factory.core.archetypes -DarchetypeArtifactId=webapp -DarchetypeVersion=3.4.0-SNAPSHOT -DarchetypeRepository=https://cgi.it-toolbox.fr/nexus/content/groups/it-toolbox-oss/
+        mvn archetype:generate -DarchetypeGroupId=fr.project-factory.core.archetypes -DarchetypeArtifactId=webapp -DarchetypeVersion=3.4.0-SNAPSHOT -DarchetypeRepository=https://forge.crespel.me/nexus/content/groups/project-factory/
 
 The interactive mode of the archetype plugin will prompt you to enter the following details:
 

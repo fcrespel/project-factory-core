@@ -1,0 +1,21 @@
+[project-factory-releases]
+name=Project Factory Releases
+baseurl=https://forge.crespel.me/repos/yum/project-factory-releases/el7/
+enabled=%{PF_REPO_RELEASES_ENABLED}
+protect=0
+gpgcheck=0
+sslverify=0
+metadata_expire=30s
+autorefresh=1
+type=rpm-md
+
+[project-factory-snapshots]
+name=Project Factory Snapshots
+baseurl=https://forge.crespel.me/repos/yum/project-factory-snapshots/el7/
+enabled=%{PF_REPO_SNAPSHOTS_ENABLED}
+protect=0
+gpgcheck=0
+sslverify=0
+metadata_expire=30s
+autorefresh=1
+type=rpm-md

@@ -5,8 +5,6 @@ title: Project Factory
 
 **Project Factory** is a fully integrated stack of open source tools for software project management.
 
-See <http://project-factory.fr> for more information.
-
 ## Installation
 
 Installation guide for production setup.

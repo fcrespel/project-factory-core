@@ -8,8 +8,8 @@ title: Packages installation
 In the instructions below:
 
 -   Commands must be executed as **root** (add `sudo` before the command if necessary).
--   Replace the `projectfactory` prefix with the value of the `package.prefix` property for the target product (e.g. `ittoolbox`).
--   Replace the `pf` prefix by the value of the `product.id` property for the target product (e.g. `ittb`).
+-   Replace the `projectfactory` prefix with the value of the `package.prefix` property for the target product (e.g. `forge`).
+-   Replace the `pf` prefix by the value of the `product.id` property for the target product (e.g. `fcm`).
 
 ## Core package
 

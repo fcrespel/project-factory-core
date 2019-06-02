@@ -7,9 +7,9 @@
 # Repo config
 REPO_PKG="https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm https://rpms.remirepo.net/enterprise/remi-release-7.rpm https://repo.mysql.com/mysql57-community-release-el7.rpm https://rpm.nodesource.com/pub_8.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm"
 
-# iT-Toolbox OSS repo config
-ITTB_OSS_REPO_RELEASES_ENABLED="0"
-ITTB_OSS_REPO_SNAPSHOTS_ENABLED="1"
+# Project Factory repo
+PF_REPO_RELEASES_ENABLED="0"
+PF_REPO_SNAPSHOTS_ENABLED="1"
 
 # Project Factory config
 PF_PKG_PREFIX="dev-projectfactory"

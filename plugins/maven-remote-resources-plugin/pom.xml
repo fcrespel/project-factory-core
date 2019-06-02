@@ -47,14 +47,14 @@ under the License.
 
   <distributionManagement>
     <repository>
-      <id>it-toolbox-oss-releases</id>
-      <name>iT-Toolbox OSS Releases</name>
-      <url>https://cgi.it-toolbox.fr/nexus/content/repositories/oss-releases/</url>
+      <id>project-factory-releases</id>
+      <name>Project Factory Releases</name>
+      <url>https://forge.crespel.me/nexus/content/repositories/project-factory-releases/</url>
     </repository>
     <snapshotRepository>
-      <id>it-toolbox-oss-snapshots</id>
-      <name>iT-Toolbox OSS Snapshots</name>
-      <url>https://cgi.it-toolbox.fr/nexus/content/repositories/oss-snapshots/</url>
+      <id>project-factory-snapshots</id>
+      <name>Project Factory Snapshots</name>
+      <url>https://forge.crespel.me/nexus/content/repositories/project-factory-snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
