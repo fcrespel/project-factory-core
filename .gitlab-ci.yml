@@ -1,0 +1,92 @@
+variables:
+  PRODUCT_GROUPID: 'fr.project-factory.core.products'
+  PRODUCT_ARTIFACTID: 'default'
+  PRODUCT_VERSION: '3.4.0-SNAPSHOT'
+  PRODUCT_FILE: 'product-dev.properties'
+  MAVEN_OPTS: '-Dmaven.repo.local=.mvn/repository'
+  MAVEN_CLI_OPTS: '-U -B -s .mvn/settings.xml'
+  MAVEN_GOALS: 'clean install'
+  MAVEN_REPO_CREDS_USR: 'toComplete'
+  MAVEN_REPO_CREDS_PSW: 'toComplete'
+  DOCKER_REPO: 'projectfactory'
+  DOCKER_IMAGE: 'build'
+  BUILD_CENTOS7: 'true'
+  BUILD_DEBIAN9: 'true'
+  BUILD_OPENSUSE423: 'true'
+  BUILD_UBUNTU1604: 'true'
+
+cache:
+  key: ${CI_PROJECT_PATH_SLUG}
+  paths:
+    - .mvn/repository
+
+stages:
+  - build_parent
+  - build_modules
+  - build_packages
+
+build_parent:
+  stage: build_parent
+  image: openjdk:8-jdk
+  script:
+    - ./mvnw -N ${MAVEN_CLI_OPTS} ${MAVEN_GOALS}
+
+build_archetypes:
+  stage: build_modules
+  image: openjdk:8-jdk
+  script:
+    - ./mvnw -f archetypes/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS}
+
+build_plugins:
+  stage: build_modules
+  image: openjdk:8-jdk
+  script:
+    - ./mvnw -f plugins/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS}
+
+build_products:
+  stage: build_modules
+  image: openjdk:8-jdk
+  script:
+    - ./mvnw -f products/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS}
+
+build_resources:
+  stage: build_modules
+  image: openjdk:8-jdk
+  script:
+    - ./mvnw -f resources/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS}
+
+build_packages_centos7:
+  stage: build_packages
+  image: ${DOCKER_REPO}/${DOCKER_IMAGE}:centos7
+  only:
+    variables:
+      - $BUILD_CENTOS7 == 'true'
+  script:
+    - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-el7-x86_64.properties -P !deb
+
+build_packages_debian9:
+  stage: build_packages
+  image: ${DOCKER_REPO}/${DOCKER_IMAGE}:debian9
+  only:
+    variables:
+      - $BUILD_DEBIAN9 == 'true'
+  script:
+    - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-debian9-amd64.properties -P !rpm
+
+build_packages_opensuse423:
+  stage: build_packages
+  image: ${DOCKER_REPO}/${DOCKER_IMAGE}:opensuse423
+  only:
+    variables:
+      - $BUILD_OPENSUSE423 == 'true'
+  script:
+    - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-opensuse423-x86_64.properties -P !deb
+
+build_packages_ubuntu1604:
+  stage: build_packages
+  image: ${DOCKER_REPO}/${DOCKER_IMAGE}:ubuntu1604
+  only:
+    variables:
+      - $BUILD_UBUNTU1604 == 'true'
+  script:
+    - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-ubuntu1604-amd64.properties -P !rpm
