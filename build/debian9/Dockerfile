@@ -3,9 +3,9 @@ FROM debian:9
 MAINTAINER Fabien Crespel <fabien@crespel.net>
 
 # Arguments
-ARG MVN_VERSION=3.5.3
+ARG MVN_VERSION=3.5.4
 ARG MVN_URL=https://archive.apache.org/dist/maven/maven-3/${MVN_VERSION}/binaries/apache-maven-${MVN_VERSION}-bin.tar.gz
-ARG RUBY_VERSION=2.4.5
+ARG RUBY_VERSION=2.4.6
 ARG BUNDLER_VERSION=1.17.3
 
 # Install initial packages
@@ -24,8 +24,6 @@ ENV LC_ALL en_US.UTF-8
 # Install additional packages
 RUN apt-get -q update &&\
 	DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends git subversion openjdk-8-jdk &&\
-	apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
-RUN apt-get -q update &&\
 	DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends build-essential cmake php php-curl php-mbstring php-xml php-pear python python-setuptools &&\
 	apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 
@@ -43,7 +41,7 @@ RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A170311380
 	/usr/local/rvm/bin/rvm requirements &&\
 	/usr/local/rvm/bin/rvm install ${RUBY_VERSION} --rubygems ignore &&\
 	/usr/local/rvm/bin/rvm alias create default ${RUBY_VERSION} &&\
-	/usr/local/rvm/bin/rvm default do gem install bundler:${BUNDLER_VERSION} --no-ri --no-rdoc &&\
+	/usr/local/rvm/bin/rvm default do gem install bundler:${BUNDLER_VERSION} --no-document &&\
 	/usr/local/rvm/bin/rvm cleanup all &&\
 	apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 
