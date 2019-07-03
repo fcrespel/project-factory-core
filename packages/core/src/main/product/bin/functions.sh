@@ -369,7 +369,7 @@ function create_truststore
 	local TRUSTSTORE="$1"
 	local TRUSTSTORE_USER="$2"
 	local TRUSTSTORE_GROUP="$3"
-	local TRUSTSTORE_IMPORT="$4"
+	local TRUSTSTORE_IMPORT="${4:-@{system.java8.app}/jre/lib/security/cacerts}"
 	local TRUSTSTORE_PASSWORD="changeit"
 	local CACERT="$PRODUCT_APP/system/httpd/ssl/cacert.pem"
 	
