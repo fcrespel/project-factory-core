@@ -11,6 +11,7 @@ pipeline {
     string(name: 'maven_repo_creds', defaultValue: 'project-factory-maven-repo-creds', description: 'Maven distribution repository credentials')
     string(name: 'docker_repo', defaultValue: 'projectfactory', description: 'Docker build image repository')
     string(name: 'docker_image', defaultValue: 'build', description: 'Docker build image name')
+    string(name: 'docker_opts', defaultValue: '', description: 'Docker build image run options')
     booleanParam(name: 'build_centos7', defaultValue: true, description: 'Build packages for CentOS 7')
     booleanParam(name: 'build_debian9', defaultValue: true, description: 'Build packages for Debian 9')
     booleanParam(name: 'build_opensuse423', defaultValue: true, description: 'Build packages for openSUSE 42.3')
@@ -56,7 +57,7 @@ pipeline {
           agent {
             docker {
               image "${params.docker_repo}/${params.docker_image}:centos7"
-              args '-v $HOME/.m2:/var/maven/.m2 -v $HOME/.m2/repository:/var/maven/.m2/repository -v $HOME/.gnupg:/var/maven/.gnupg'
+              args "-v \$HOME/.m2:/var/maven/.m2 -v \$HOME/.m2/repository:/var/maven/.m2/repository -v \$HOME/.gnupg:/var/maven/.gnupg ${params.docker_opts}"
             }
           }
           when {
@@ -71,7 +72,7 @@ pipeline {
           agent {
             docker {
               image "${params.docker_repo}/${params.docker_image}:debian9"
-              args '-v $HOME/.m2:/var/maven/.m2 -v $HOME/.m2/repository:/var/maven/.m2/repository -v $HOME/.gnupg:/var/maven/.gnupg'
+              args "-v \$HOME/.m2:/var/maven/.m2 -v \$HOME/.m2/repository:/var/maven/.m2/repository -v \$HOME/.gnupg:/var/maven/.gnupg ${params.docker_opts}"
             }
           }
           when {
@@ -86,7 +87,7 @@ pipeline {
           agent {
             docker {
               image "${params.docker_repo}/${params.docker_image}:opensuse423"
-              args '-v $HOME/.m2:/var/maven/.m2 -v $HOME/.m2/repository:/var/maven/.m2/repository -v $HOME/.gnupg:/var/maven/.gnupg'
+              args "-v \$HOME/.m2:/var/maven/.m2 -v \$HOME/.m2/repository:/var/maven/.m2/repository -v \$HOME/.gnupg:/var/maven/.gnupg ${params.docker_opts}"
             }
           }
           when {
@@ -101,7 +102,7 @@ pipeline {
           agent {
             docker {
               image "${params.docker_repo}/${params.docker_image}:ubuntu1604"
-              args '-v $HOME/.m2:/var/maven/.m2 -v $HOME/.m2/repository:/var/maven/.m2/repository -v $HOME/.gnupg:/var/maven/.gnupg'
+              args "-v \$HOME/.m2:/var/maven/.m2 -v \$HOME/.m2/repository:/var/maven/.m2/repository -v \$HOME/.gnupg:/var/maven/.gnupg ${params.docker_opts}"
             }
           }
           when {
