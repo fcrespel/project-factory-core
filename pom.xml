@@ -60,26 +60,26 @@
 		<repository>
 			<id>project-factory</id>
 			<name>Project Factory</name>
-			<url>https://forge.crespel.me/nexus/content/groups/project-factory/</url>
+			<url>https://services.crespel.me/nexus/repository/project-factory/</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>project-factory</id>
 			<name>Project Factory</name>
-			<url>https://forge.crespel.me/nexus/content/groups/project-factory/</url>
+			<url>https://services.crespel.me/nexus/repository/project-factory/</url>
 		</pluginRepository>
 	</pluginRepositories>
 	<distributionManagement>
 		<repository>
 			<id>project-factory-releases</id>
 			<name>Project Factory Releases</name>
-			<url>https://forge.crespel.me/nexus/content/repositories/project-factory-releases/</url>
+			<url>https://services.crespel.me/nexus/repository/project-factory-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>project-factory-snapshots</id>
 			<name>Project Factory Snapshots</name>
-			<url>https://forge.crespel.me/nexus/content/repositories/project-factory-snapshots/</url>
+			<url>https://services.crespel.me/nexus/repository/project-factory-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
