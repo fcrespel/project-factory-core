@@ -10,10 +10,21 @@ variables:
   MAVEN_REPO_CREDS_PSW: 'toComplete'
   DOCKER_REPO: 'projectfactory'
   DOCKER_IMAGE: 'build'
+  PACKAGE_REPO_URL: 'https://services.crespel.me/nexus/repository'
+  PACKAGE_REPO_CENTOS7: 'project-factory-snapshots-centos7'
+  PACKAGE_REPO_DEBIAN9: 'project-factory-snapshots-debian9'
+  PACKAGE_REPO_OPENSUSE423: 'project-factory-snapshots-opensuse423'
+  PACKAGE_REPO_UBUNTU1604: 'project-factory-snapshots-ubuntu1604'
+  PACKAGE_REPO_CREDS_USR: 'toComplete'
+  PACKAGE_REPO_CREDS_PSW: 'toComplete'
   BUILD_CENTOS7: 'true'
   BUILD_DEBIAN9: 'true'
   BUILD_OPENSUSE423: 'true'
   BUILD_UBUNTU1604: 'true'
+  PUBLISH_CENTOS7: 'false'
+  PUBLISH_DEBIAN9: 'false'
+  PUBLISH_OPENSUSE423: 'false'
+  PUBLISH_UBUNTU1604: 'false'
 
 cache:
   key: ${CI_PROJECT_PATH_SLUG}
@@ -63,6 +74,8 @@ build_packages_centos7:
       - $BUILD_CENTOS7 == 'true'
   script:
     - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-el7-x86_64.properties -P !deb
+  after_script:
+    - "[ \"$PUBLISH_CENTOS7\" != 'true' ] || find . -wholename '*/target/*.rpm' -print0 | xargs -0 -n1 curl -u \"${PACKAGE_REPO_CREDS_USR}:${PACKAGE_REPO_CREDS_PSW}\" \"${PACKAGE_REPO_URL}/${PACKAGE_REPO_CENTOS7}/\" -T"
 
 build_packages_debian9:
   stage: build_packages
@@ -72,6 +85,8 @@ build_packages_debian9:
       - $BUILD_DEBIAN9 == 'true'
   script:
     - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-debian9-amd64.properties -P !rpm
+  after_script:
+    - "[ \"$PUBLISH_DEBIAN9\" != 'true' ] || find . -wholename '*/target/*.deb' -printf '@%p\\0' | xargs -0 -n1 curl -H 'Content-Type: multipart/form-data' -u \"${PACKAGE_REPO_CREDS_USR}:${PACKAGE_REPO_CREDS_PSW}\" \"${PACKAGE_REPO_URL}/${PACKAGE_REPO_DEBIAN9}/\" --data-binary"
 
 build_packages_opensuse423:
   stage: build_packages
@@ -81,6 +96,8 @@ build_packages_opensuse423:
       - $BUILD_OPENSUSE423 == 'true'
   script:
     - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-opensuse423-x86_64.properties -P !deb
+  after_script:
+    - "[ \"$PUBLISH_OPENSUSE423\" != 'true' ] || find . -wholename '*/target/*.rpm' -print0 | xargs -0 -n1 curl -u \"${PACKAGE_REPO_CREDS_USR}:${PACKAGE_REPO_CREDS_PSW}\" \"${PACKAGE_REPO_URL}/${PACKAGE_REPO_OPENSUSE423}/\" -T"
 
 build_packages_ubuntu1604:
   stage: build_packages
@@ -90,3 +107,5 @@ build_packages_ubuntu1604:
       - $BUILD_UBUNTU1604 == 'true'
   script:
     - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-ubuntu1604-amd64.properties -P !rpm
+  after_script:
+    - "[ \"$PUBLISH_UBUNTU1604\" != 'true' ] || find . -wholename '*/target/*.deb' -printf '@%p\\0' | xargs -0 -n1 curl -H 'Content-Type: multipart/form-data' -u \"${PACKAGE_REPO_CREDS_USR}:${PACKAGE_REPO_CREDS_PSW}\" \"${PACKAGE_REPO_URL}/${PACKAGE_REPO_UBUNTU1604}/\" --data-binary"
