@@ -17,6 +17,9 @@ variables:
   PACKAGE_REPO_UBUNTU1604: 'project-factory-snapshots-ubuntu1604'
   PACKAGE_REPO_CREDS_USR: 'toComplete'
   PACKAGE_REPO_CREDS_PSW: 'toComplete'
+  PACKAGE_KEY_FILE: ''
+  PACKAGE_KEY_NAME: ''
+  PACKAGE_KEY_PASSPHRASE: ''
   BUILD_CENTOS7: 'true'
   BUILD_DEBIAN9: 'true'
   BUILD_OPENSUSE423: 'true'
@@ -72,6 +75,10 @@ build_packages_centos7:
   only:
     variables:
       - $BUILD_CENTOS7 == 'true'
+  before_script:
+    - if [ -n "$PACKAGE_KEY_FILE" ]; then gpg --import --batch "$PACKAGE_KEY_FILE"; fi
+    - if [ -n "$PACKAGE_KEY_NAME" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.name=$PACKAGE_KEY_NAME"; fi
+    - if [ -n "$PACKAGE_KEY_PASSPHRASE" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.passphrase=$PACKAGE_KEY_PASSPHRASE"; fi
   script:
     - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-el7-x86_64.properties -P !deb
   after_script:
@@ -83,6 +90,10 @@ build_packages_debian9:
   only:
     variables:
       - $BUILD_DEBIAN9 == 'true'
+  before_script:
+    - if [ -n "$PACKAGE_KEY_FILE" ]; then gpg --import --batch "$PACKAGE_KEY_FILE"; fi
+    - if [ -n "$PACKAGE_KEY_NAME" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.name=$PACKAGE_KEY_NAME"; fi
+    - if [ -n "$PACKAGE_KEY_PASSPHRASE" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.passphrase=$PACKAGE_KEY_PASSPHRASE"; fi
   script:
     - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-debian9-amd64.properties -P !rpm
   after_script:
@@ -94,6 +105,10 @@ build_packages_opensuse423:
   only:
     variables:
       - $BUILD_OPENSUSE423 == 'true'
+  before_script:
+    - if [ -n "$PACKAGE_KEY_FILE" ]; then gpg --import --batch "$PACKAGE_KEY_FILE"; fi
+    - if [ -n "$PACKAGE_KEY_NAME" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.name=$PACKAGE_KEY_NAME"; fi
+    - if [ -n "$PACKAGE_KEY_PASSPHRASE" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.passphrase=$PACKAGE_KEY_PASSPHRASE"; fi
   script:
     - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-opensuse423-x86_64.properties -P !deb
   after_script:
@@ -105,6 +120,10 @@ build_packages_ubuntu1604:
   only:
     variables:
       - $BUILD_UBUNTU1604 == 'true'
+  before_script:
+    - if [ -n "$PACKAGE_KEY_FILE" ]; then gpg --import --batch "$PACKAGE_KEY_FILE"; fi
+    - if [ -n "$PACKAGE_KEY_NAME" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.name=$PACKAGE_KEY_NAME"; fi
+    - if [ -n "$PACKAGE_KEY_PASSPHRASE" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.passphrase=$PACKAGE_KEY_PASSPHRASE"; fi
   script:
     - ./mvnw -fae -f packages/pom.xml ${MAVEN_CLI_OPTS} ${MAVEN_GOALS} -Dproperties.product.groupId=${PRODUCT_GROUPID} -Dproperties.product.artifactId=${PRODUCT_ARTIFACTID} -Dproperties.product.version=${PRODUCT_VERSION} -Dproperties.product.file=${PRODUCT_FILE} -Dproperties.system.file=system-ubuntu1604-amd64.properties -P !rpm
   after_script:

@@ -18,6 +18,9 @@ pipeline {
     string(name: 'package_repo_opensuse423', defaultValue: 'project-factory-snapshots-opensuse423', description: 'Package repository for openSUSE 42.3')
     string(name: 'package_repo_ubuntu1604', defaultValue: 'project-factory-snapshots-ubuntu1604', description: 'Package repository for Ubuntu 16.04')
     string(name: 'package_repo_creds', defaultValue: 'project-factory-package-repo-creds', description: 'Package repository credentials')
+    string(name: 'package_key_file', defaultValue: '', description: 'Package signing key file (credentials)')
+    string(name: 'package_key_name', defaultValue: '', description: 'Package signing key name')
+    string(name: 'package_key_passphrase', defaultValue: '', description: 'Package signing key passphrase (credentials)')
     booleanParam(name: 'build_centos7', defaultValue: true, description: 'Build packages for CentOS 7')
     booleanParam(name: 'build_debian9', defaultValue: true, description: 'Build packages for Debian 9')
     booleanParam(name: 'build_opensuse423', defaultValue: true, description: 'Build packages for openSUSE 42.3')
@@ -31,6 +34,9 @@ pipeline {
     MAVEN_OPTS = "${params.maven_opts}"
     MAVEN_REPO_CREDS = credentials("${params.maven_repo_creds}")
     PACKAGE_REPO_CREDS = credentials("${params.package_repo_creds}")
+    PACKAGE_KEY_FILE = credentials("${params.package_key_file}")
+    PACKAGE_KEY_NAME = "${params.package_key_name}"
+    PACKAGE_KEY_PASSPHRASE = credentials("${params.package_key_passphrase}")
   }
   stages {
     stage('Build Parent') {
@@ -63,12 +69,16 @@ pipeline {
       }
     }
     stage('Build Packages') {
+      environment {
+        MAVEN_CONFIG = "-Duser.home=/var/maven -Dbuild.dir=/var/maven/build -Dgpg.homedir=/var/maven/.gnupg"
+        GNUPGHOME = "/var/maven/.gnupg"
+      }
       parallel {
         stage('CentOS 7') {
           agent {
             docker {
               image "${params.docker_repo}/${params.docker_image}:centos7"
-              args "-v \$HOME/.m2:/var/maven/.m2 -v \$HOME/.m2/repository:/var/maven/.m2/repository -v \$HOME/.gnupg:/var/maven/.gnupg ${params.docker_opts}"
+              args "-v \$HOME/.m2/repository:/var/maven/.m2/repository ${params.docker_opts}"
             }
           }
           when {
@@ -78,7 +88,12 @@ pipeline {
           stages {
             stage('CentOS 7 Build') {
               steps {
-                sh "/bin/bash -l -c './mvnw -Duser.home=/var/maven -Dbuild.dir=/var/maven/build -Dgpg.homedir=/var/maven/.gnupg -fae -f packages/pom.xml ${params.maven_cli_opts} ${params.maven_goals} -Dproperties.product.groupId=${params.product_groupId} -Dproperties.product.artifactId=${params.product_artifactId} -Dproperties.product.version=${params.product_version} -Dproperties.product.file=${params.product_file} -Dproperties.system.file=system-el7-x86_64.properties -P !deb'"
+                sh '''
+                  if [ -n "$PACKAGE_KEY_FILE" ]; then gpg --import --batch "$PACKAGE_KEY_FILE"; fi
+                  if [ -n "$PACKAGE_KEY_NAME" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.name=$PACKAGE_KEY_NAME"; fi
+                  if [ -n "$PACKAGE_KEY_PASSPHRASE" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.passphrase=$PACKAGE_KEY_PASSPHRASE"; fi
+                  /bin/bash -l -c './mvnw -fae -f packages/pom.xml ${params.maven_cli_opts} ${params.maven_goals} -Dproperties.product.groupId=${params.product_groupId} -Dproperties.product.artifactId=${params.product_artifactId} -Dproperties.product.version=${params.product_version} -Dproperties.product.file=${params.product_file} -Dproperties.system.file=system-el7-x86_64.properties -P !deb'
+                '''
               }
             }
             stage('CentOS 7 Publish') {
@@ -95,7 +110,7 @@ pipeline {
           agent {
             docker {
               image "${params.docker_repo}/${params.docker_image}:debian9"
-              args "-v \$HOME/.m2:/var/maven/.m2 -v \$HOME/.m2/repository:/var/maven/.m2/repository -v \$HOME/.gnupg:/var/maven/.gnupg ${params.docker_opts}"
+              args "-v \$HOME/.m2/repository:/var/maven/.m2/repository ${params.docker_opts}"
             }
           }
           when {
@@ -105,7 +120,12 @@ pipeline {
           stages {
             stage('Debian 9 Build') {
               steps {
-                sh "/bin/bash -l -c './mvnw -Duser.home=/var/maven -Dbuild.dir=/var/maven/build -Dgpg.homedir=/var/maven/.gnupg -fae -f packages/pom.xml ${params.maven_cli_opts} ${params.maven_goals} -Dproperties.product.groupId=${params.product_groupId} -Dproperties.product.artifactId=${params.product_artifactId} -Dproperties.product.version=${params.product_version} -Dproperties.product.file=${params.product_file} -Dproperties.system.file=system-debian9-amd64.properties -P !rpm'"
+                sh '''
+                  if [ -n "$PACKAGE_KEY_FILE" ]; then gpg --import --batch "$PACKAGE_KEY_FILE"; fi
+                  if [ -n "$PACKAGE_KEY_NAME" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.name=$PACKAGE_KEY_NAME"; fi
+                  if [ -n "$PACKAGE_KEY_PASSPHRASE" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.passphrase=$PACKAGE_KEY_PASSPHRASE"; fi
+                  /bin/bash -l -c './mvnw -fae -f packages/pom.xml ${params.maven_cli_opts} ${params.maven_goals} -Dproperties.product.groupId=${params.product_groupId} -Dproperties.product.artifactId=${params.product_artifactId} -Dproperties.product.version=${params.product_version} -Dproperties.product.file=${params.product_file} -Dproperties.system.file=system-debian9-amd64.properties -P !rpm'
+                '''
               }
             }
             stage('Debian 9 Publish') {
@@ -122,7 +142,7 @@ pipeline {
           agent {
             docker {
               image "${params.docker_repo}/${params.docker_image}:opensuse423"
-              args "-v \$HOME/.m2:/var/maven/.m2 -v \$HOME/.m2/repository:/var/maven/.m2/repository -v \$HOME/.gnupg:/var/maven/.gnupg ${params.docker_opts}"
+              args "-v \$HOME/.m2/repository:/var/maven/.m2/repository ${params.docker_opts}"
             }
           }
           when {
@@ -132,7 +152,12 @@ pipeline {
           stages {
             stage('openSUSE 42.3 Build') {
               steps {
-                sh "/bin/bash -l -c './mvnw -Duser.home=/var/maven -Dbuild.dir=/var/maven/build -Dgpg.homedir=/var/maven/.gnupg -fae -f packages/pom.xml ${params.maven_cli_opts} ${params.maven_goals} -Dproperties.product.groupId=${params.product_groupId} -Dproperties.product.artifactId=${params.product_artifactId} -Dproperties.product.version=${params.product_version} -Dproperties.product.file=${params.product_file} -Dproperties.system.file=system-opensuse423-x86_64.properties -P !deb'"
+                sh '''
+                  if [ -n "$PACKAGE_KEY_FILE" ]; then gpg --import --batch "$PACKAGE_KEY_FILE"; fi
+                  if [ -n "$PACKAGE_KEY_NAME" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.name=$PACKAGE_KEY_NAME"; fi
+                  if [ -n "$PACKAGE_KEY_PASSPHRASE" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.passphrase=$PACKAGE_KEY_PASSPHRASE"; fi
+                  /bin/bash -l -c './mvnw -fae -f packages/pom.xml ${params.maven_cli_opts} ${params.maven_goals} -Dproperties.product.groupId=${params.product_groupId} -Dproperties.product.artifactId=${params.product_artifactId} -Dproperties.product.version=${params.product_version} -Dproperties.product.file=${params.product_file} -Dproperties.system.file=system-opensuse423-x86_64.properties -P !deb'
+                '''
               }
             }
             stage('openSUSE 42.3 Publish') {
@@ -149,7 +174,7 @@ pipeline {
           agent {
             docker {
               image "${params.docker_repo}/${params.docker_image}:ubuntu1604"
-              args "-v \$HOME/.m2:/var/maven/.m2 -v \$HOME/.m2/repository:/var/maven/.m2/repository -v \$HOME/.gnupg:/var/maven/.gnupg ${params.docker_opts}"
+              args "-v \$HOME/.m2/repository:/var/maven/.m2/repository ${params.docker_opts}"
             }
           }
           when {
@@ -159,7 +184,12 @@ pipeline {
           stages {
             stage('Ubuntu 16.04 Build') {
               steps {
-                sh "/bin/bash -l -c './mvnw -Duser.home=/var/maven -Dbuild.dir=/var/maven/build -Dgpg.homedir=/var/maven/.gnupg -fae -f packages/pom.xml ${params.maven_cli_opts} ${params.maven_goals} -Dproperties.product.groupId=${params.product_groupId} -Dproperties.product.artifactId=${params.product_artifactId} -Dproperties.product.version=${params.product_version} -Dproperties.product.file=${params.product_file} -Dproperties.system.file=system-ubuntu1604-amd64.properties -P !rpm'"
+                sh '''
+                  if [ -n "$PACKAGE_KEY_FILE" ]; then gpg --import --batch "$PACKAGE_KEY_FILE"; fi
+                  if [ -n "$PACKAGE_KEY_NAME" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.name=$PACKAGE_KEY_NAME"; fi
+                  if [ -n "$PACKAGE_KEY_PASSPHRASE" ]; then export MAVEN_CONFIG="$MAVEN_CONFIG -Dpackage.key.passphrase=$PACKAGE_KEY_PASSPHRASE"; fi
+                  /bin/bash -l -c './mvnw -fae -f packages/pom.xml ${params.maven_cli_opts} ${params.maven_goals} -Dproperties.product.groupId=${params.product_groupId} -Dproperties.product.artifactId=${params.product_artifactId} -Dproperties.product.version=${params.product_version} -Dproperties.product.file=${params.product_file} -Dproperties.system.file=system-ubuntu1604-amd64.properties -P !rpm'
+                '''
               }
             }
             stage('Ubuntu 16.04 Publish') {
