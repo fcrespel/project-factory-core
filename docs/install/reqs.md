@@ -90,12 +90,10 @@ Before installing **Project Factory** packages, additional **repositories** must
 
             [project-factory-releases]
             name=Project Factory Releases
-            baseurl=https://forge.crespel.me/repos/yum/project-factory-releases/el7/
+            baseurl=https://services.crespel.me/nexus/repository/project-factory-releases-centos7/
             enabled=1
-            protect=0
             gpgcheck=1
-            gpgkey=https://forge.crespel.me/repos/GPG-KEY-Project-Factory
-            sslverify=0
+            gpgkey=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xe3053ea040ad4d9a
             autorefresh=1
             type=rpm-md
 
@@ -123,11 +121,11 @@ Before installing **Project Factory** packages, additional **repositories** must
 -   **Project Factory Releases**:
     -   Execute this command:
 
-            wget -qO - https://forge.crespel.me/repos/GPG-KEY-Project-Factory | sudo apt-key add -
+            apt-key adv --keyserver "keyserver.ubuntu.com" --recv-key "e3053ea040ad4d9a"
 
     -   Create the `project-factory.list` file in `/etc/apt/sources.list.d`:
 
-            deb https://forge.crespel.me/repos/apt/project-factory-releases/ debian9 main
+            deb https://services.crespel.me/nexus/repository/project-factory-releases-debian9/ debian9 main
 
 ### Ubuntu 16.04
 
@@ -150,11 +148,11 @@ Before installing **Project Factory** packages, additional **repositories** must
 -   **Project Factory Releases**:
     -   Execute this command:
 
-            wget -qO - https://forge.crespel.me/repos/GPG-KEY-Project-Factory | sudo apt-key add -
+            apt-key adv --keyserver "keyserver.ubuntu.com" --recv-key "e3053ea040ad4d9a"
 
     -   Create the `project-factory.list` file in `/etc/apt/sources.list.d`:
 
-            deb https://forge.crespel.me/repos/apt/project-factory-releases/ ubuntu1604 main
+            deb https://services.crespel.me/nexus/repository/project-factory-releases-ubuntu1604/ ubuntu1604 main
 
 ## Firewall
 

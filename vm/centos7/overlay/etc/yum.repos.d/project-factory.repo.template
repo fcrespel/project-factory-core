@@ -1,21 +1,19 @@
 [project-factory-releases]
 name=Project Factory Releases
-baseurl=https://forge.crespel.me/repos/yum/project-factory-releases/el7/
+baseurl=https://services.crespel.me/nexus/repository/project-factory-releases-centos7/
 enabled=%{PF_REPO_RELEASES_ENABLED}
-protect=0
 gpgcheck=0
-sslverify=0
+gpgkey=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xe3053ea040ad4d9a
 metadata_expire=30s
 autorefresh=1
 type=rpm-md
 
 [project-factory-snapshots]
 name=Project Factory Snapshots
-baseurl=https://forge.crespel.me/repos/yum/project-factory-snapshots/el7/
+baseurl=https://services.crespel.me/nexus/repository/project-factory-snapshots-centos7/
 enabled=%{PF_REPO_SNAPSHOTS_ENABLED}
-protect=0
 gpgcheck=0
-sslverify=0
+gpgkey=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xe3053ea040ad4d9a
 metadata_expire=30s
 autorefresh=1
 type=rpm-md

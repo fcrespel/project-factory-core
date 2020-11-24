@@ -6,9 +6,9 @@
 
 # Project Factory repo
 PF_REPO_RELEASES_ENABLED="0"
-PF_REPO_RELEASES_LIST="deb https://forge.crespel.me/repos/apt/project-factory-releases/ debian9 main"
+PF_REPO_RELEASES_LIST="deb https://services.crespel.me/nexus/repository/project-factory-releases-debian9/ debian9 main"
 PF_REPO_SNAPSHOTS_ENABLED="1"
-PF_REPO_SNAPSHOTS_LIST="deb https://forge.crespel.me/repos/apt/project-factory-snapshots/ debian9 main"
+PF_REPO_SNAPSHOTS_LIST="deb https://services.crespel.me/nexus/repository/project-factory-snapshots-debian9/ debian9 main"
 
 # Project Factory config
 PF_PKG_PREFIX="dev-projectfactory"
